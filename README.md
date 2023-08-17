@@ -1,2 +1,3 @@
-# DO_RNA-Seq
-A repository for RNA-Seq data analysis related to Diversity Outbred (DO) mice
+# Diversity Outbred (DO) bulk RNA-Seq pipeline
+
+## Overview of the pipeline
