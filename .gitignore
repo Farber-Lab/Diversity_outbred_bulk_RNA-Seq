@@ -1,5 +1,5 @@
 # Ignore results
-Results/
+Results/*/
 
 # Ignore slurm job logs
 job_logs/
