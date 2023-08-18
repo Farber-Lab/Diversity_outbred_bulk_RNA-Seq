@@ -31,7 +31,6 @@ Usage: src/sh/run_fastqc.sh -i target_dir -o out_dir -m run_mode
 Run FASTQC on Rivanna (UVA internal)   
 ```bash
 #!/bin/bash
-# running with slurm (UVA internal)
 sbatch src/slurm/run_fastqc.slurm
 ```
 In this case the `.slurm` script needs to be edited. The user should change the values of  `target_dir`, `out_dir`, and `run_mode` in the slurm script.
