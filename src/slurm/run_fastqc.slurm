@@ -21,6 +21,7 @@ run_mode="Untrimmed"
 
 #--------------
 # run fastqc
+bash src/sh/run_fastqc.sh -i ${target_dir} -o ${out_dir} -m ${run_mode}
 
 
 

@@ -28,7 +28,8 @@ Usage: src/sh/run_fastqc.sh -i target_dir -o out_dir -m run_mode
     -o Path to the directory where the outputs will be written
     -m value should be one of Trimmed/Untrimmed 
 
-Run FASTQC on Rivanna (UVA internal)   
+Run FASTQC as a slurm job (UVA internal on Rivanna)
+
 ```bash
 #!/bin/bash
 sbatch src/slurm/run_fastqc.slurm
