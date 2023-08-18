@@ -1,0 +1,6 @@
+# Ignore results
+results/
+
+# Ignore slurm job logs
+job_logs/
+
