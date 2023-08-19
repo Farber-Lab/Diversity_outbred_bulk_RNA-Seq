@@ -8,13 +8,16 @@ Clone this repository in your computing environment
 #!/usr/bin/bash
 # make sure git is set up to handle SSH login, alternatively use HTTPS
 git clone git@github.com:Sktbanerjee1/Diversity_outbred_bulk_RNA-Seq.git
+cd Diversity_outbred_bulk_RNA-Seq/
 ```
 
 ## Workflow for the RNA-Seq Analysis
 
+The following scripts are assumed to be executed from the project folder path `.../Diversity_outbred_bulk_RNA-Seq/`
+
 ### QC of the FASTQ files
 
-This step is to be performed twice, once on the raw fastq files (before trimming) and once after trimming; assumed execution from the project folder path `.../Diversity_outbred_bulk_RNA-Seq/`.
+This step is to be performed twice, once on the raw fastq files (before trimming) and once after trimming.
 
 * Run FATQC on local computing environment
 
@@ -49,7 +52,7 @@ In this case the `.slurm` script needs to be edited. If needed, the user should 
 bash src/sh/run_multiqc.sh --help
 
 Usage: 
-src/sh/run_multiqc.sh -i target_dir -o out_dir -m run_mode
+src/sh/run_multiqc.sh -i target_dir -o out_dir
     -i path to directory with FASTQC outputs
     -o Path to the directory where the multiQC report will be written
 ```
