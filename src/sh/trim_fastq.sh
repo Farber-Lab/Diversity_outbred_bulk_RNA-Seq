@@ -3,16 +3,17 @@
 helpFunction()
 {
    echo ""
-   echo "Usage: $0 -i target_dir -o out_dir -a adapter_file -w window -m min_len"
+   echo "Usage: $0 -i target_dir -o out_dir -a adapter_file -w window -m min_len -t trimmomatic alias"
    echo -e "\t-i path to directory with fastq files"
    echo -e "\t-o Path to the directory where the outputs will be written"
    echo -e "\t-a Path to the adapter fasta file"
    echo -e "\t-w Sliding Window"
    echo -e "\t-m Minimum read length"
+   echo -e "\t-t Trimmomatic alias"
    exit 1 # Exit script after printing help
 }
 
-while getopts "i:o:a:w:m:" opt
+while getopts "i:o:a:w:m:t:" opt
 do
    case "$opt" in
       i ) target_dir="$OPTARG" ;;
@@ -20,12 +21,13 @@ do
       a ) adapter_file="$OPTARG" ;;
       w ) window="$OPTARG" ;;
       m ) min_len="$OPTARG" ;;
+      t ) trimmomatic="$OPTARG" ;;
       ? ) helpFunction ;; # Print helpFunction in case parameter is non-existent
    esac
 done
 
 # Print helpFunction in case parameters are empty
-if [ -z "$target_dir" ] || [ -z "$out_dir" ] || [ -z "$adapter_file" ] || [ -z "$window" ] || [ -z "$min_len" ]
+if [ -z "$target_dir" ] || [ -z "$out_dir" ] || [ -z "$adapter_file" ] || [ -z "$window" ] || [ -z "$min_len" ] || [ -z "$trimmomatic" ]
 then
    echo "All the parameters are required!";
    helpFunction
@@ -63,9 +65,9 @@ for sample in "${samples[@]}"; do
     mkdir -p ${sample_out_dir}
     sample_files=($(echo "${files}" | grep "/${sample}_"))
     len_files=${#sample_files[@]}
-    if [[ $len_files -eq 2]]; then
+    if [[ $len_files -eq 2 ]]; then
         echo "Running paired End"
-        trimmomatic -PE -threads 10 -phred33 \
+        java -jar ${trimmomatic} PE -threads 10 -phred33 \
         -trimlog ${sample_out_dir}/log.txt \
         ${sample_files[0]} ${sample_files[1]} \
         ${sample_out_dir}/${sample}_R1_paired.fastq.gz ${sample_out_dir}/${sample}_R1_unpaired.fastq.gz \
@@ -74,7 +76,7 @@ for sample in "${samples[@]}"; do
         > ${sample_out_dir}/${sample}_trimstat.txt
     else
         echo "Expected paired-end sequences; Provided sequences are likely single-end"
-        exit(1)
+        exit 1;
     fi
 done
 

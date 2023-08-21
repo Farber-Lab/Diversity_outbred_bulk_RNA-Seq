@@ -19,8 +19,9 @@ out_dir="/project/farber_lab/Users/Current_users/Saikat_B/Diversity_outbred_bulk
 adapter_file="/project/farber_lab/Users/Current_users/Saikat_B/Diversity_outbred_bulk_RNA-Seq/Illumina_TruSeq_adapters.fasta"
 window="4:25"
 min_len="50"
+trimmomatic="$EBROOTTRIMMOMATIC/trimmomatic-0.39.jar"
 
 
 #--------------
 # run trimmomatic
-bash src/sh/trim_fastq -i ${target_dir} -o ${out_dir} -a ${adapter_file} -w ${window} -m ${min_len}
+bash src/sh/trim_fastq.sh -i ${target_dir} -o ${out_dir} -a ${adapter_file} -w ${window} -m ${min_len} -t ${trimmomatic}

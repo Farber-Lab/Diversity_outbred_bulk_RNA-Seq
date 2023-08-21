@@ -13,6 +13,7 @@ cd Diversity_outbred_bulk_RNA-Seq/
 
 ## Workflow for the RNA-Seq Analysis
 
+This workflow is designed towards the automated processing of large numbers of samples. Each step below are executed in batch mode.
 The following scripts are assumed to be executed from the project folder path `.../Diversity_outbred_bulk_RNA-Seq/`
 
 ### QC of the FASTQ files
@@ -83,9 +84,10 @@ src/sh/trim_fastq.sh -i target_dir -o out_dir -a adapter_file -w window -m min_l
     -a Path to the adapter fasta file
     -w Sliding Window
     -m Minimum read length
+    -t Trimmomatic alias
 ```
 
-For more details on the parameters, visit the [Trimmomatic manual](http://www.usadellab.org/cms/?page=trimmomatic).
+For default installations of Trimmomatic v0.39, the trimmomatic alias shoud be `trimmomatic-0.39.jar`. For more details on the parameters, visit the [Trimmomatic manual](http://www.usadellab.org/cms/?page=trimmomatic).
 
 * Run Trimmomatic as a slurm job (UVA internal on Rivanna)
 
