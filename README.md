@@ -23,7 +23,7 @@ This step is to be performed twice, once on the raw fastq files (before trimming
 
 ```bash
 #!/bin/bash
-# make sure FASTQC is installed and availble in the path
+# make sure FASTQC is installed and availble in the $PATH
 bash src/sh/run_fastqc.sh --help
 
 
@@ -48,7 +48,7 @@ If needed, the user should change the values of  `target_dir`, `out_dir`, and `r
 
 ```bash
 #!/bin/bash
-# make sure multiqc is installed and availble in the path
+# make sure multiqc is installed and availble in the $PATH
 bash src/sh/run_multiqc.sh --help
 
 Usage: 
@@ -67,5 +67,32 @@ If needed, the user should change the values of  `target_dir`, and `out_dir`in t
 
 ### Drop low quality reads and adapter sequences
 
-Make sure to identify the sequencing platform and the library preparation protocol, this information helps us to identify appropiate adapters and contaminents that must be removed. Generally, the sequencing protocol utilizes **TruSeq Stranded mRNA kit**, supported accross a number of Illumina platform. A set of standard TruSeq adapters are provided as `Illumina_TruSeq_adapters.fasta`. More more details on Illumina adapters visit official documentation. 
+Make sure to identify the sequencing platform and the library preparation protocol, this information helps us to identify appropiate adapters and contaminents that must be removed. Generally, the sequencing protocol utilizes **TruSeq Stranded mRNA Kit**, supported accross a number of Illumina platform. A set of standard TruSeq adapters are provided as `Illumina_TruSeq_adapters.fasta`. More more details on Illumina adapters visit official documentation. 
+
+* Run Trimmomatic in local computing environment
+
+```bash
+#!/bin/bash
+# make sure Trimmomatic is installed and availble in the $PATH
+bash src/sh/trim_fastq.sh
+
+Usage: 
+src/sh/trim_fastq.sh -i target_dir -o out_dir -a adapter_file -w window -m min_len
+    -i path to directory with fastq files
+    -o Path to the directory where the outputs will be written
+    -a Path to the adapter fasta file
+    -w Sliding Window
+    -m Minimum read length
+```
+
+For more details on the parameters, visit the [Trimmomatic manual](http://www.usadellab.org/cms/?page=trimmomatic).
+
+* Run Trimmomatic as a slurm job (UVA internal on Rivanna)
+
+```bash
+#!/bin/bash
+sbatch src/slurm/trim_fastq.slurm
+```
+If needed, the user should change the values of  `target_dir`, `out_dir`, `adapter_file`, `window` and `min_len` in the slurm script.
+
 
