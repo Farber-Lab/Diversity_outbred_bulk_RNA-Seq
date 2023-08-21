@@ -67,5 +67,5 @@ If needed, the user should change the values of  `target_dir`, and `out_dir`in t
 
 ### Drop low quality reads and adapter sequences
 
-Make sure to identify the sequencing platform and the library preparation protocol. Generally, the sequencing protocol utilizes the TruSeq Stranded mRNA kit, supported accross a number of Illumina platform. This information helps us to identify appropiate adapters that must be trimmed. To run this step, a set of adapter sequences needs to be provided as a `.fasta` file, and a list of standard TruSeq adapters are provided as `Illumina_TruSeq_adapters.fasta`. 
+Make sure to identify the sequencing platform and the library preparation protocol, this information helps us to identify appropiate adapters and contaminents that must be removed. Generally, the sequencing protocol utilizes **TruSeq Stranded mRNA kit**, supported accross a number of Illumina platform. A set of standard TruSeq adapters are provided as `Illumina_TruSeq_adapters.fasta`. More more details on Illumina adapters visit official documentation. 
 
