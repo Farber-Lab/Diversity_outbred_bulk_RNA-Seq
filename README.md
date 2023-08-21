@@ -40,7 +40,7 @@ src/sh/run_fastqc.sh -i target_dir -o out_dir -m run_mode
 #!/bin/bash
 sbatch src/slurm/run_fastqc.slurm
 ```
-In this case the `.slurm` script needs to be edited. If needed, the user should change the values of  `target_dir`, `out_dir`, and `run_mode` in the slurm script.
+If needed, the user should change the values of  `target_dir`, `out_dir`, and `run_mode` in the slurm script.
 
 ### Combine FASTQC results with MultiQC
 
@@ -63,4 +63,9 @@ src/sh/run_multiqc.sh -i target_dir -o out_dir
 #!/bin/bash
 sbatch src/slurm/run_multiqc.slurm
 ```
-In this case the `.slurm` script needs to be edited. If needed, the user should change the values of  `target_dir`, and `out_dir`in the slurm script.
+If needed, the user should change the values of  `target_dir`, and `out_dir`in the slurm script.
+
+### Drop low quality reads and adapter sequences
+
+Make sure to identify the sequencing platform and the library preparation protocol. Generally, the sequencing protocol utilizes the TruSeq Stranded mRNA kit, supported accross a number of Illumina platform. This information helps us to identify appropiate adapters that must be trimmed. To run this step, a set of adapter sequences needs to be provided as a `.fasta` file, and a list of standard TruSeq adapters are provided as `Illumina_TruSeq_adapters.fasta`. 
+
