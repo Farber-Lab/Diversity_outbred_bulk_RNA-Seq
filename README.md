@@ -100,7 +100,7 @@ If needed, the user should change the values of  `target_dir`, `out_dir`, `adapt
 ### Extract trim statistics from the trimmomatic logs
 
 Trimmomatic provides a number of useful statiscs including the input reads, reads remaining after trimming and dropped reads. However, these statics are part of the console output. 
-The following script extracts these statics from the colsole output saved as a text file or log files in the format of a .tsv file.
+The following script extracts these statistics from the colsole output saved as a text file or log files.
 
 * Run as a R script
 
