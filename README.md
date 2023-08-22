@@ -87,7 +87,7 @@ src/sh/trim_fastq.sh -i target_dir -o out_dir -a adapter_file -w window -m min_l
     -t Trimmomatic alias
 ```
 
-For default installations of Trimmomatic v0.39, the trimmomatic alias shoud be `trimmomatic-0.39.jar`. For more details on the parameters, visit the [Trimmomatic manual](http://www.usadellab.org/cms/?page=trimmomatic).
+For default installations of Trimmomatic v0.39, the **trimmomatic alias** shoud be `trimmomatic-0.39.jar` or it can be the path to `trimmomatic-<version>.jar`. For more details on the parameters, see the [Trimmomatic manual](http://www.usadellab.org/cms/?page=trimmomatic).
 
 * Run Trimmomatic as a slurm job (UVA internal on Rivanna)
 
@@ -96,5 +96,3 @@ For default installations of Trimmomatic v0.39, the trimmomatic alias shoud be `
 sbatch src/slurm/trim_fastq.slurm
 ```
 If needed, the user should change the values of  `target_dir`, `out_dir`, `adapter_file`, `window` and `min_len` in the slurm script.
-
-

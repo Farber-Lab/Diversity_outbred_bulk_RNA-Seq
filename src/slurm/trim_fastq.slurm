@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --nodes=1
-#SBATCH --ntasks-per-node=05
-#SBATCH -t 02:00:00
+#SBATCH --ntasks-per-node=10
+#SBATCH -t 48:00:00
 #SBATCH -p largemem
 #SBATCH -A cphg-farber
 #SBATCH -o job_logs/trim_fastq.output

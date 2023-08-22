@@ -72,8 +72,7 @@ for sample in "${samples[@]}"; do
         ${sample_files[0]} ${sample_files[1]} \
         ${sample_out_dir}/${sample}_R1_paired.fastq.gz ${sample_out_dir}/${sample}_R1_unpaired.fastq.gz \
         ${sample_out_dir}/${sample}_R2_paired.fastq.gz ${sample_out_dir}/${sample}_R2_unpaired.fastq.gz \
-        ILLUMINACLIP:${adapter_file}:2:30:10 SLIDINGWINDOW:${window} MINLEN:${min_len} \
-        > ${sample_out_dir}/${sample}_trimstat.txt
+        ILLUMINACLIP:${adapter_file}:2:30:10 SLIDINGWINDOW:${window} MINLEN:${min_len}
     else
         echo "Expected paired-end sequences; Provided sequences are likely single-end"
         exit 1;
