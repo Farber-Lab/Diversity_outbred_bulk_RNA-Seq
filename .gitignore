@@ -6,6 +6,7 @@ job_logs/
 
 # R related
 .Rproj.user
+.Rproj
 
 # History files
 .Rhistory
