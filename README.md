@@ -20,7 +20,7 @@ The following scripts are assumed to be executed from the project folder path `.
 
 This step is to be performed twice, once on the raw fastq files (before trimming) and once after trimming.
 
-* Run FATQC on local computing environment
+* Run FASTQC on local computing environment
 
 ```bash
 #!/bin/bash
