@@ -96,3 +96,37 @@ For default installations of Trimmomatic v0.39, the **trimmomatic alias** shoud 
 sbatch src/slurm/trim_fastq.slurm
 ```
 If needed, the user should change the values of  `target_dir`, `out_dir`, `adapter_file`, `window` and `min_len` in the slurm script.
+
+### Extract trim statistics from the trimmomatic logs
+
+Trimmomatic provides a number of useful statiscs including the input reads, reads remaining after trimming and dropped reads. However, these statics are part of the console output. 
+The following script extracts these statics from the colsole output saved as a text file or log files in the format of a .tsv file.
+
+* Run as a R script
+
+```bash
+#!/bin/bash
+# make sure R is installed and Rscript is availble in the $PATH
+Rscript src/R/extract_trimstat.R --help
+
+Options:
+    -e ERROR_LOG, --error_log=ERROR_LOG
+            Path to the Trimmomatic error log file
+
+    -c CONSOLE_LOG, --console_log=CONSOLE_LOG
+            Path to the Trimmomatic console log file
+
+    -o OUT_DIR, --out_dir=OUT_DIR
+            A folder where the output will be written
+
+    -h, --help
+            Show this help message and exit
+
+```
+
+* Run as a slurm job (UVA internal on Rivanna)
+
+```bash
+#!/bin/bash
+sbatch src/slurm/extract_trimstat.slurm
+```
