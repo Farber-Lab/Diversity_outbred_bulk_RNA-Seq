@@ -17,4 +17,4 @@ module load R/4.2.1
 
 # run script
 #------------
-Rscript src/R/extract_trimstat.R
+Rscript src/R/extract_trimming_stat.R
