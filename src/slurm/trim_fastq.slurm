@@ -4,8 +4,8 @@
 #SBATCH -t 48:00:00
 #SBATCH -p largemem
 #SBATCH -A cphg-farber
-#SBATCH -o job_logs/trim_fastq.output
-#SBATCH -e job_logs/trim_fastq.error
+#SBATCH -o job_logs/trim_fastq2.output
+#SBATCH -e job_logs/trim_fastq2.error
 
 
 #--------

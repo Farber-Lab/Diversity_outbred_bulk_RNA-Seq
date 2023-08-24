@@ -41,7 +41,7 @@ echo "Trim Illumina reads with trimmomatic..."
 echo "${now}"
 target_dir=$(realpath ${target_dir})
 echo "target: ${target_dir}"
-out_dir=${out_dir}Fastq_trimmed_${dt}
+out_dir=${out_dir}Fastq_trimmed
 mkdir -p ${out_dir}
 out_dir=$(realpath ${out_dir})
 adapter_file=$(realpath ${adapter_file})
@@ -61,22 +61,27 @@ echo "found:${#samples[@]} samples"
 for sample in "${samples[@]}"; do
     echo "Processing sample=${sample}"
     sample_out_dir=${out_dir}/${sample}/
-    echo "Creating ${sample_out_dir}"
-    mkdir -p ${sample_out_dir}
-    sample_files=($(echo "${files}" | grep "/${sample}_"))
-    len_files=${#sample_files[@]}
-    if [[ $len_files -eq 2 ]]; then
-        echo "Running paired End"
-        java -jar ${trimmomatic} PE -threads 10 -phred33 \
-        -trimlog ${sample_out_dir}/log.txt \
-        ${sample_files[0]} ${sample_files[1]} \
-        ${sample_out_dir}/${sample}_R1_paired.fastq.gz ${sample_out_dir}/${sample}_R1_unpaired.fastq.gz \
-        ${sample_out_dir}/${sample}_R2_paired.fastq.gz ${sample_out_dir}/${sample}_R2_unpaired.fastq.gz \
-        ILLUMINACLIP:${adapter_file}:2:30:10 SLIDINGWINDOW:${window} MINLEN:${min_len}
+    if [ -d "$sample_out_dir" ]; then
+        echo "Folder exists in the destination skipping sample"
     else
-        echo "Expected paired-end sequences; Provided sequences are likely single-end"
-        exit 1;
+        echo "Creating ${sample_out_dir}"
+        mkdir -p ${sample_out_dir}
+        sample_files=($(echo "${files}" | grep "/${sample}_"))
+        len_files=${#sample_files[@]}
+        if [[ $len_files -eq 2 ]]; then
+            echo "Running paired End"
+            java -jar ${trimmomatic} PE -threads 10 -phred33 \
+            -trimlog ${sample_out_dir}/log.txt \
+            ${sample_files[0]} ${sample_files[1]} \
+            ${sample_out_dir}/${sample}_R1_paired.fastq.gz ${sample_out_dir}/${sample}_R1_unpaired.fastq.gz \
+            ${sample_out_dir}/${sample}_R2_paired.fastq.gz ${sample_out_dir}/${sample}_R2_unpaired.fastq.gz \
+            ILLUMINACLIP:${adapter_file}:2:30:10 SLIDINGWINDOW:${window} MINLEN:${min_len}
+        else
+            echo "Expected paired-end sequences; Provided sequences are likely single-end"
+            exit 1;
+        fi
     fi
+    
 done
 
 echo "Trimming complete!"
