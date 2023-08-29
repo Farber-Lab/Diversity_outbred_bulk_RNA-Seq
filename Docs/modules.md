@@ -1,9 +1,10 @@
-## Workflow for the RNA-Seq Analysis
+# Workflow for the RNA-Seq Analysis
 
 This workflow is designed towards the automated processing of large numbers of samples. Each step below are executed in batch mode.
-The following scripts are assumed to be executed from the project folder path `.../Diversity_outbred_bulk_RNA-Seq/`
+The following scripts are assumed to be executed from the project folder path `.../Diversity_outbred_bulk_RNA-Seq/`. 
+UVA internal users, running slurm jobs, please verify the account information before starting. Accurate account name should be updated at the `#SBATCH -A <account name>` attribute. The default value in this case is `cphg-farber` (only available to the members of the Farber lab).
 
-### QC of the FASTQ files
+## QC of the FASTQ files
 
 This step is to be performed twice, once on the raw fastq files (before trimming) and once after trimming.
 
@@ -30,7 +31,7 @@ sbatch src/slurm/run_fastqc.slurm
 ```
 If needed, the user should change the values of  `target_dir`, `out_dir`, and `run_mode` in the slurm script.
 
-### Combine FASTQC results with MultiQC
+## Combine FASTQC results with MultiQC
 
 * Run MultiQC on local computing environment
 
@@ -53,7 +54,7 @@ sbatch src/slurm/run_multiqc.slurm
 ```
 If needed, the user should change the values of  `target_dir`, and `out_dir`in the slurm script.
 
-### Drop low quality reads and adapter sequences
+## Drop low quality reads and adapter sequences
 
 Make sure to identify the sequencing platform and the library preparation protocol, this information helps us to identify appropiate adapters and contaminents that must be removed. Generally, the sequencing protocol utilizes **TruSeq Stranded mRNA Kit**, supported accross a number of Illumina platform. A set of standard TruSeq adapters are provided as `Illumina_TruSeq_adapters.fasta`. More more details on Illumina adapters visit official documentation. 
 
@@ -84,7 +85,7 @@ sbatch src/slurm/trim_fastq.slurm
 ```
 If needed, the user should change the values of  `target_dir`, `out_dir`, `adapter_file`, `window` and `min_len` in the slurm script.
 
-### Extract trim statistics from the trimmomatic logs
+## Extract trim statistics from the trimmomatic logs
 
 Trimmomatic provides a number of useful statiscs including the input reads, reads remaining after trimming and dropped reads. However, these statics are part of the console output. 
 The following script extracts these statistics from the colsole output saved as a text file or log files.
@@ -118,4 +119,59 @@ Options:
 sbatch src/slurm/extract_trimstat.slurm
 ```
 
-### Align RNA-Seq reads
+## Align RNA-Seq reads
+
+### Prepare genome build
+
+We use Hisat2 for the alignment of the raw reads. First step in the alignment is to prepare the necessary files, commonly known as a reference genome build or index. This can be performed by the the following script. This step requires a mouse refernce genome and a list of known SNPs.
+
+```bash
+#!/bin/bash
+#------- reference genome
+# Download mouse reference genome (GRCm38)
+wget https://ftp.ensembl.org/pub/release-102/fasta/mus_musculus/dna/Mus_musculus.GRCm38.dna_sm.toplevel.fa.gz
+
+# unzip reference genome
+gunzip -d Mus_musculus.GRCm38.dna_sm.toplevel.fa.gz
+
+#------ list of SNPs
+# Download list of SNPs (GRCm38 mapped positions)
+wget http://hgdownload.cse.ucsc.edu/goldenPath/mm10/database/snp142.txt.gz
+# unzip the list of SNPs
+gunzip -d snp142.txt.gz
+```
+
+* Prepare genome build in a local computing environment
+
+```bash
+#!/bin/bash
+bash src/sh/prepare_genome_build.sh 
+
+Usage: 
+src/sh/prepare_genome_build.sh -i genome_fasta -s SNP_file -o out_dir -p hisat2_extract_snps_haplotypes_UCSC.py
+    -i Path to the reference genome (to be used for the alignment)
+    -s Path to the SNP file (to be used for the alignment)
+    -p Path to the hisat2_extract_snps_haplotypes_UCSC.py script
+    -o Path to the directory where the outputs will be written
+```
+
+Note: `hisat2_extract_snps_haplotypes_UCSC.py` is  originally distributed through Hisat2, and has been made available  in this repository at [src/Py/hisat2_extract_snps_haplotypes_UCSC.py](src/Py/hisat2_extract_snps_haplotypes_UCSC.py), under GNU General Public License. The originial script can be found in the [Hisat2 repository](https://github.com/DaehwanKimLab/hisat2/blob/master/hisat2_extract_snps_haplotypes_UCSC.py).
+
+* Prepare genome build through a slurm job
+
+```bash
+#!/bin/bash
+sbatch src/slurm/prepare_genome_build.slurm
+```
+If needed, the user should chage the values of `genome_fasta`,`snp_file`,`python_script` and `out_dir` in the slurm script.
+
+### Perform sequence alignment
+
+## Extra note: Running slurm jobs in interactive mode (Rivanna UVA internal)
+
+UVA users can run above modules interactively on Rivanna using the following code. For more details on slurm job management in UVA HPC systems, see the [UVA Research Compute page](https://www.rc.virginia.edu/userinfo/rivanna/slurm/)
+
+```bash
+#!/bin/bash
+ijob --account=<account> --nodes=1 --cpus-per-task=16 --partition=largemem --time=48:00:00 bash src/sh/<script name> <arguments>
+```

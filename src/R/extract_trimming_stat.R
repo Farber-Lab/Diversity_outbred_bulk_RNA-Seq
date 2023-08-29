@@ -173,13 +173,6 @@ if(file.exists(trim_stat_out)){
 
 df_final <- df_final %>% dplyr::distinct(.keep_all = TRUE)
 
-plot(df_final$Input_reads, df_final)
-
-df_final %>%
-  ggplot(aes(
-    x=as.numeric(input_reads), y=as.numeric(Reads_after_trimming)
-  )) + geom_point()
-
 write.table(
   df_final,
   trim_stat_out,
