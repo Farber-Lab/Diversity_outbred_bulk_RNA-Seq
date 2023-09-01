@@ -17,8 +17,8 @@ module load hisat2/2.1.0
 
 #------------
 # Setup
-genome_fasta="/project/farber_lab/Dataset/Public_data/Mouse/Ref_genome_GRCm38/Mus_musculus.GRCm38.dna_sm.toplevel.fa"
-snp_file="/project/farber_lab/Dataset/Public_data/Mouse/Ref_genome_GRCm38/Annotation/snp142.txt"
+genome_fasta="/project/farber_lab/Dataset/Reference_data/Mouse/Ref_genome_GRCm38/GRCm38.p6.genome.fa"
+snp_file="/project/farber_lab/Dataset/Reference_data/Mouse/Ref_genome_GRCm38/Annotation/snp142.txt"
 python_script="src/Py/hisat2_extract_snps_haplotypes_UCSC.py"
 out_dir="/project/farber_lab/Users/Current_users/Saikat_B/Diversity_outbred_bulk_RNA-Seq/Results/Genome_build/"
 

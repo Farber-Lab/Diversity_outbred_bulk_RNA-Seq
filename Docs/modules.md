@@ -129,13 +129,13 @@ We use Hisat2 for the alignment of the raw reads. First step in the alignment is
 #!/bin/bash
 #------- reference genome
 # Download mouse reference genome (GRCm38)
-wget https://ftp.ensembl.org/pub/release-102/fasta/mus_musculus/dna/Mus_musculus.GRCm38.dna_sm.toplevel.fa.gz
+wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M20/GRCm38.p6.genome.fa.gz
 
 # unzip reference genome
 gunzip -d Mus_musculus.GRCm38.dna_sm.toplevel.fa.gz
 
 #------ list of SNPs
-# Download list of SNPs (GRCm38 mapped positions)
+# Download list of SNPs from UCSC (GRCm38 mapped positions)
 wget http://hgdownload.cse.ucsc.edu/goldenPath/mm10/database/snp142.txt.gz
 # unzip the list of SNPs
 gunzip -d snp142.txt.gz
