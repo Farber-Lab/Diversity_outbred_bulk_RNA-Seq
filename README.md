@@ -10,6 +10,17 @@ Clone this repository in your computing environment
 git clone git@github.com:Sktbanerjee1/Diversity_outbred_bulk_RNA-Seq.git
 cd Diversity_outbred_bulk_RNA-Seq/
 ```
+
+### Core Dependencies
+
+* fastqc/0.11.5
+* multiqc/1.11
+* trimmomatic/0.39
+* hisat2/2.1.0
+* python/3.8.8
+* R/4.2.1
+
+
 ## Documentation
 
 * [Modules used in this workflow](Docs/modules.md)
