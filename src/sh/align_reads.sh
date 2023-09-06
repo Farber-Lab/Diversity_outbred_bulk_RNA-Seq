@@ -55,7 +55,7 @@ samples=($(echo "$files" | awk -F'/' '{split($NF, a, "_"); print a[1]}' | sort |
 echo "found:${#samples[@]} samples"
 
 
-for sample in "${samples[0]}"; do
+for sample in "${samples[@]}"; do
     echo "Processing sample=${sample}"
     sample_out_dir=${out_dir}/${sample}/
     if [ -d "$sample_out_dir" ]; then
@@ -70,7 +70,7 @@ for sample in "${samples[0]}"; do
         echo "REV:${rev_paired}"
         echo "Starting alignment"
         # --dta enables downstrap triptome assembly
-        cmd="hisat2 --dta -x ${genome_index} -1 ${fwd_paired} -2 ${rev_paired} -S ${sample}_aligned_unsorted.sam"
+        cmd="hisat2 --dta -x ${genome_index} -1 ${fwd_paired} -2 ${rev_paired} -S ${sample_out_dir}/${sample}_aligned_unsorted.sam"
         echo "Running:${cmd}"
         eval "${cmd}"
     fi
