@@ -180,6 +180,8 @@ src/sh/align_reads.sh -i target_dir -x genome_index_path -n genome_index_name  -
     -n Name of the Hisat2 genome index
     -o Path to the directory where the outputs will be written
 ```
+Note: 
+`-x genome_index_path` is equivalent to setting the `HISAT2_INDEXES` environment variable; where as `-n genome_index_name` should specify the base name of the index files.  The basename is the name of any of the index files up to but not including the final .1.ht2 / etc. `-i target_dir` should be set on the output directory  generated through the `src/sh/trim_fastq.sh` script.
 
 * Perform sequence alignment through a slurm job
 
