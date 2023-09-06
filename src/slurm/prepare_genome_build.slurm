@@ -1,7 +1,8 @@
 #!/bin/bash
 #SBATCH --nodes=1
-#SBATCH --cpus-per-task=16
+#SBATCH --cpus-per-task=10
 #SBATCH -t 48:00:00
+#SBATCH --mem=900000
 #SBATCH -p largemem
 #SBATCH -A cphg-farber
 #SBATCH -o job_logs/prepare_genome_build.output
@@ -20,7 +21,7 @@ module load hisat2/2.1.0
 genome_fasta="/project/farber_lab/Dataset/Reference_data/Mouse/Ref_genome_GRCm38/GRCm38.p6.genome.fa"
 snp_file="/project/farber_lab/Dataset/Reference_data/Mouse/Ref_genome_GRCm38/Annotation/snp142.txt"
 python_script="src/Py/hisat2_extract_snps_haplotypes_UCSC.py"
-out_dir="/project/farber_lab/Users/Current_users/Saikat_B/Diversity_outbred_bulk_RNA-Seq/Results/Genome_build/"
+out_dir="/project/farber_lab/Users/Current_users/Saikat_B/Diversity_outbred_bulk_RNA-Seq/Results/Genome_build_snp/"
 
 #--------------
 # prepare genome build

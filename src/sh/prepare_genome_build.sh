@@ -53,6 +53,6 @@ echo "Extracting SNPs Haplotypes"
 python3 ${hisat_snps_py} ${genome_fasta} ${snp_file} genome
 
 echo "Building genome index"
-hisat2-build --noauto --bmaxdivn 2 --dcv 2048 -p 16 --large-index ${genome_fasta} --snp genome.snp --haplotype genome.haplotype genome_snp
+hisat2-build --noauto --bmaxdivn 1 --dcv 1024 -p 1 --large-index ${genome_fasta} --snp genome.snp --haplotype genome.haplotype genome_snp
 
 echo "Done!"

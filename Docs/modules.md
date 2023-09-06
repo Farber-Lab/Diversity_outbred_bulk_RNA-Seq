@@ -167,6 +167,28 @@ If needed, the user should chage the values of `genome_fasta`,`snp_file`,`python
 
 ### Perform sequence alignment
 
+* Perform sequence alignment in a local computing environment 
+
+```bash
+#!/bin/bash
+bash src/sh/align_reads.sh
+
+Usage: 
+src/sh/align_reads.sh -i target_dir -x genome_index_path -n genome_index_name  -o out_dir
+    -i Path to the target directory where trimmed fastq files are stored
+    -x Path to the Hisat2 genome index
+    -n Name of the Hisat2 genome index
+    -o Path to the directory where the outputs will be written
+```
+
+* Perform sequence alignment through a slurm job
+
+```bash
+#!/bin/bash
+sbatch src/slurm/align_reads.slurm 
+```
+
+
 ## Extra note: Running slurm jobs in interactive mode (Rivanna UVA internal)
 
 UVA users can run above modules interactively on Rivanna using the following code. For more details on slurm job management in UVA HPC systems, see the [UVA Research Compute page](https://www.rc.virginia.edu/userinfo/rivanna/slurm/)
