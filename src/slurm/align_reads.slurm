@@ -1,6 +1,8 @@
 #!/bin/bash
 #SBATCH --nodes=1
-#SBATCH -p standard
+#SBATCH --ntasks-per-node=16
+#SBATCH -p largemem
+#SBATCH -t 48:00:00
 #SBATCH -A cphg-farber
 #SBATCH -o job_logs/align_reads.output
 #SBATCH -e job_logs/align_reads.error

@@ -15,10 +15,14 @@ cd Diversity_outbred_bulk_RNA-Seq/
 
 The following dependencies should be installed in the computing environment and available in the `$PATH`
 
+#### Genomics utilities
 * fastqc/0.11.5
 * multiqc/1.11
 * trimmomatic/0.39
 * hisat2/2.1.0
+* Samtools/1.12
+
+# Language interpreters
 * python/3.8.8
 * R/4.2.1
 

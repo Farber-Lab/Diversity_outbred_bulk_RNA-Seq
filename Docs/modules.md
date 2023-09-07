@@ -63,7 +63,7 @@ Make sure to identify the sequencing platform and the library preparation protoc
 ```bash
 #!/bin/bash
 # make sure Trimmomatic is installed and availble in the $PATH
-bash src/sh/trim_fastq.sh
+bash src/sh/trim_fastq.sh --help
 
 Usage: 
 src/sh/trim_fastq.sh -i target_dir -o out_dir -a adapter_file -w window -m min_len
@@ -118,6 +118,7 @@ Options:
 #!/bin/bash
 sbatch src/slurm/extract_trimstat.slurm
 ```
+Default values for the arguments are set on the R script. The user may set these variables in the slurm script as needed.
 
 ## Align RNA-Seq reads
 
@@ -145,7 +146,7 @@ gunzip -d snp142.txt.gz
 
 ```bash
 #!/bin/bash
-bash src/sh/prepare_genome_build.sh 
+bash src/sh/prepare_genome_build.sh  --help
 
 Usage: 
 src/sh/prepare_genome_build.sh -i genome_fasta -s SNP_file -o out_dir -p hisat2_extract_snps_haplotypes_UCSC.py
@@ -156,6 +157,17 @@ src/sh/prepare_genome_build.sh -i genome_fasta -s SNP_file -o out_dir -p hisat2_
 ```
 
 Note: `hisat2_extract_snps_haplotypes_UCSC.py` is  originally distributed through Hisat2, and has been made available  in this repository at [src/Py/hisat2_extract_snps_haplotypes_UCSC.py](src/Py/hisat2_extract_snps_haplotypes_UCSC.py), under GNU General Public License. The originial script can be found in the [Hisat2 repository](https://github.com/DaehwanKimLab/hisat2/blob/master/hisat2_extract_snps_haplotypes_UCSC.py).
+
+
+* Prepare genome build through a slurm job
+
+```bash
+#!/bin/bash
+sbatch src/slurm/prepare_genome_build.slurm
+```
+If needed, the user should chage the values of `genome_fasta`,`snp_file`,`python_script` and `out_dir` in the slurm script.
+
+---
 
 Althernatively, prebilt genome indexes can be downloded from the [Hisat2 downloads](http://daehwankimlab.github.io/hisat2/download/). For this purpose we can use the SNP-aware or SNP and transcript aware genome indexes of the GRCm38 or mm10 reference genome.
 
@@ -175,21 +187,13 @@ rm *.tar.gz # make sure to run where only the download .tar.gz are present
 
 The above commands can be used to download and decompress the taballs from the Hisat2 download page. The paths to the extarcted genome index folder should needs to be provided for the alignment.
 
-* Prepare genome build through a slurm job
-
-```bash
-#!/bin/bash
-sbatch src/slurm/prepare_genome_build.slurm
-```
-If needed, the user should chage the values of `genome_fasta`,`snp_file`,`python_script` and `out_dir` in the slurm script.
-
 ### Perform sequence alignment
 
 * Perform sequence alignment in a local computing environment 
 
 ```bash
 #!/bin/bash
-bash src/sh/align_reads.sh
+bash src/sh/align_reads.sh --help
 
 Usage: 
 src/sh/align_reads.sh -i target_dir -x genome_index_path -n genome_index_name  -o out_dir
@@ -208,6 +212,27 @@ Note:
 sbatch src/slurm/align_reads.slurm 
 ```
 
+### Generate sorted and indexed BAM files
+
+* Generate BAM files in a local environment
+
+```bash
+#!/bin/bash
+bash src/sh/unsorted_sam_to_sorted_bam.sh --help
+
+Usage: 
+src/sh/unsorted_sam_to_sorted_bam.sh -i target_dir -o out_dir
+    -i Path to the target directory where unsorted sam files are present
+    -o Path to the directory where the outputs will be written
+```
+
+* Generate BAM files through a slurm job
+
+```bash
+#!/bin/bash
+sbatch src/slurm/unsoerted_sam_to_sorted_bam.slurm 
+```
+The user may modify the `target_dir`, and `out_dir` in the slurm script as needed.
 
 ## Extra note: Running slurm jobs in interactive mode (Rivanna UVA internal)
 
