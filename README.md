@@ -22,7 +22,7 @@ The following dependencies should be installed in the computing environment and 
 * hisat2/2.1.0
 * Samtools/1.12
 
-# Language interpreters
+#### Language interpreters
 * python/3.8.8
 * R/4.2.1
 
