@@ -157,6 +157,24 @@ src/sh/prepare_genome_build.sh -i genome_fasta -s SNP_file -o out_dir -p hisat2_
 
 Note: `hisat2_extract_snps_haplotypes_UCSC.py` is  originally distributed through Hisat2, and has been made available  in this repository at [src/Py/hisat2_extract_snps_haplotypes_UCSC.py](src/Py/hisat2_extract_snps_haplotypes_UCSC.py), under GNU General Public License. The originial script can be found in the [Hisat2 repository](https://github.com/DaehwanKimLab/hisat2/blob/master/hisat2_extract_snps_haplotypes_UCSC.py).
 
+Althernatively, prebilt genome indexes can be downloded from the [Hisat2 downloads](http://daehwankimlab.github.io/hisat2/download/). For this purpose we can use the SNP-aware or SNP and transcript aware genome indexes of the GRCm38 or mm10 reference genome.
+
+```bash
+#!/bin/bash
+# genome index with snps
+wget https://cloud.biohpc.swmed.edu/index.php/s/grcm38_snp/download -O Hisat2_prebuilt_GRCM38_snp.tar.gz
+tar -xf Hisat2_prebuilt_GRCM38_snp.tar.gz
+
+# genome index with transcripts and SNPs
+$wget https://cloud.biohpc.swmed.edu/index.php/s/grcm38_snp_tran/download -O Hisat2_prebuilt_GRCM38_transcripts_snp.tar.gz
+tar -xf Hisat2_prebuilt_GRCM38_transcripts_snp.tar.gz
+
+# delete the .tar.gz only keeping the extracted folder
+rm *.tar.gz # make sure to run where only the download .tar.gz are present
+```
+
+The above commands can be used to download and decompress the taballs from the Hisat2 download page. The paths to the extarcted genome index folder should needs to be provided for the alignment.
+
 * Prepare genome build through a slurm job
 
 ```bash
