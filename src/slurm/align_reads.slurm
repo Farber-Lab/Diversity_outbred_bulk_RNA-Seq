@@ -16,9 +16,9 @@ module load hisat2/2.1.0
 #------------
 # Setup
 target_dir="/project/farber_lab/Users/Current_users/Saikat_B/Diversity_outbred_bulk_RNA-Seq/Results/Fastq_trimmed/"
-genome_index_path="/project/farber_lab/Users/Current_users/Saikat_B/Diversity_outbred_bulk_RNA-Seq/Results/Genome_build/"
-genome_index_name="genome_build"
-out_dir="/project/farber_lab/Users/Current_users/Saikat_B/Diversity_outbred_bulk_RNA-Seq/Results/alignment"
+genome_index_path="/project/farber_lab/Users/Current_users/Saikat_B/Diversity_outbred_bulk_RNA-Seq/Results/Genome_build_snp/grcm38_snp"
+genome_index_name="genome_snp"
+out_dir="/project/farber_lab/Users/Current_users/Saikat_B/Diversity_outbred_bulk_RNA-Seq/Results/Alignment_GRCm38_snp"
 
 #--------------
 # align reads

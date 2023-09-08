@@ -159,7 +159,7 @@ src/sh/prepare_genome_build.sh -i genome_fasta -s SNP_file -o out_dir -p hisat2_
 Note: `hisat2_extract_snps_haplotypes_UCSC.py` is  originally distributed through Hisat2, and has been made available  in this repository at [src/Py/hisat2_extract_snps_haplotypes_UCSC.py](src/Py/hisat2_extract_snps_haplotypes_UCSC.py), under GNU General Public License. The originial script can be found in the [Hisat2 repository](https://github.com/DaehwanKimLab/hisat2/blob/master/hisat2_extract_snps_haplotypes_UCSC.py).
 
 
-* Prepare genome build through a slurm job
+* Prepare genome build through a slurm job (UVA internal on Rivanna)
 
 ```bash
 #!/bin/bash
@@ -205,7 +205,7 @@ src/sh/align_reads.sh -i target_dir -x genome_index_path -n genome_index_name  -
 Note: 
 `-x genome_index_path` is equivalent to setting the `HISAT2_INDEXES` environment variable; where as `-n genome_index_name` should specify the base name of the index files.  The basename is the name of any of the index files up to but not including the final .1.ht2 / etc. `-i target_dir` should be set on the output directory  generated through the `src/sh/trim_fastq.sh` script.
 
-* Perform sequence alignment through a slurm job
+* Perform sequence alignment through a slurm job (UVA internal on Rivanna)
 
 ```bash
 #!/bin/bash
@@ -226,11 +226,33 @@ src/sh/unsorted_sam_to_sorted_bam.sh -i target_dir -o out_dir
     -o Path to the directory where the outputs will be written
 ```
 
-* Generate BAM files through a slurm job
+* Generate BAM files through a slurm job (UVA internal on Rivanna)
 
 ```bash
 #!/bin/bash
 sbatch src/slurm/unsoerted_sam_to_sorted_bam.slurm 
+```
+The user may modify the `target_dir`, and `out_dir` in the slurm script as needed.
+
+### Get alignment statistics from the sorted BAM files
+
+* Get alignment statistics in a local environment
+
+```bash
+#!/bin/bash
+bash src/sh/get_alignment_stat.sh --help
+
+Usage: 
+src/sh/get_alignment_stat.sh -i target_dir -o out_dir
+    -i Path to the target directory where unsorted sam files are present
+    -o Path to the directory where the outputs will be written
+```
+
+* Get alignment statistics through a slurm job (UVA internal on Rivanna)
+
+```bash
+#!/bin/bash
+sbatch src/slurm/get_alignment_stat.slurm
 ```
 The user may modify the `target_dir`, and `out_dir` in the slurm script as needed.
 
