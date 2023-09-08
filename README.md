@@ -30,3 +30,4 @@ The following dependencies should be installed in the computing environment and 
 ## Documentation
 
 * [Modules used in this workflow](Docs/modules.md)
+* [Notes for Rivanna Users (UVA internal)](Docs/Rivanna_UVA_internal.md)
