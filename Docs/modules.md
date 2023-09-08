@@ -5,6 +5,8 @@ The following scripts are to be executed from the project folder path `.../Diver
 
 ## 1. QC of the FASTQ files
 
+### 1.1 Run FASTQC
+
 This step is to be performed twice, once on the raw fastq files (before trimming) and once after trimming.
 
 * Run FASTQC on local computing environment
@@ -30,7 +32,7 @@ This step is to be performed twice, once on the raw fastq files (before trimming
     ```
 If needed, the user should change the values of  `target_dir`, `out_dir`, and `run_mode` in the slurm script.
 
-### Combine FASTQC results with MultiQC
+### 1.2 Combine FASTQC results with MultiQC
 
 * Run MultiQC on local computing environment
 
@@ -54,7 +56,7 @@ If needed, the user should change the values of  `target_dir`, `out_dir`, and `r
     ```
 If needed, the user should change the values of  `target_dir`, and `out_dir`in the slurm script.
 
-### Drop low quality reads and adapter sequences
+### 1.3 Drop low quality reads and adapter sequences
 
 Make sure to identify the sequencing platform and the library preparation protocol, this information helps us to identify appropiate adapters and contaminents that must be removed. Generally, the sequencing protocol utilizes **TruSeq Stranded mRNA Kit**, supported accross a number of Illumina platform. A set of standard TruSeq adapters are provided as `Illumina_TruSeq_adapters.fasta`. More more details on Illumina adapters visit official documentation. 
 
@@ -86,7 +88,7 @@ For default installations of Trimmomatic v0.39, the **trimmomatic alias** shoud 
     ```
 If needed, the user should change the values of  `target_dir`, `out_dir`, `adapter_file`, `window` and `min_len` in the slurm script.
 
-### Extract trim statistics from the trimmomatic logs
+### 1.4 Extract trim statistics from the trimmomatic logs
 
 Trimmomatic provides a number of useful statiscs including the input reads, reads remaining after trimming and dropped reads. However, these statics are part of the console output. 
 The following script extracts these statistics from the colsole output saved as a text file or log files.
@@ -123,7 +125,7 @@ Default values for the arguments are set on the R script. The user may set these
 
 ## 2. Align RNA-Seq reads
 
-### Prepare genome build
+### 2.1 Prepare genome build
 
 We use Hisat2 for the alignment of the raw reads. First step in the alignment is to prepare the necessary files, commonly known as a reference genome build or index. This can be performed by the the following script. This step requires a mouse refernce genome and a list of known SNPs.
 
@@ -189,7 +191,7 @@ rm *.tar.gz # make sure to run where only the download .tar.gz are present
 
 The above commands can be used to download and decompress the taballs from the Hisat2 download page. The paths to the extarcted genome index folder should needs to be provided for the alignment.
 
-### Perform sequence alignment
+### 2.2 Perform sequence alignment
 
 * Perform sequence alignment in a local computing environment 
 
@@ -215,7 +217,7 @@ Note:
     sbatch src/slurm/align_reads.slurm 
     ```
 
-### Generate sorted and indexed BAM files
+### 2.3 Generate sorted and indexed BAM files
 
 * Generate BAM files in a local environment
 
@@ -238,7 +240,7 @@ Note:
     ```
 The user may modify the `target_dir`, and `out_dir` in the slurm script as needed.
 
-### Get alignment statistics from the sorted BAM files
+### 2.4 Get alignment statistics from the sorted BAM files
 
 * Get alignment statistics in a local environment
 
@@ -261,7 +263,7 @@ The user may modify the `target_dir`, and `out_dir` in the slurm script as neede
     ```
 The user may modify the `target_dir`, and `out_dir` in the slurm script as needed.
 
-### Summarize alignment statistics
+### 2.5 Summarize alignment statistics
 
 * Summarize alignment statistics with a R script
     ```bash
