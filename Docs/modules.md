@@ -13,8 +13,8 @@ This step is to be performed twice, once on the raw fastq files (before trimming
     #!/bin/bash
     # make sure FASTQC is installed and availble in the $PATH
     bash src/sh/run_fastqc.sh --help
-
-
+    ```
+    ```text
     Usage: 
     src/sh/run_fastqc.sh -i target_dir -o out_dir -m run_mode
         -i path to directory with fastq files
@@ -38,8 +38,9 @@ If needed, the user should change the values of  `target_dir`, `out_dir`, and `r
     #!/bin/bash
     # make sure multiqc is installed and availble in the $PATH
     bash src/sh/run_multiqc.sh --help
-
-    Usage: 
+    ```
+    ```text
+     Usage: 
     src/sh/run_multiqc.sh -i target_dir -o out_dir
         -i path to directory with FASTQC outputs
         -o Path to the directory where the multiQC report will be written
@@ -63,7 +64,8 @@ Make sure to identify the sequencing platform and the library preparation protoc
     #!/bin/bash
     # make sure Trimmomatic is installed and availble in the $PATH
     bash src/sh/trim_fastq.sh --help
-
+    ```
+    ```text
     Usage: 
     src/sh/trim_fastq.sh -i target_dir -o out_dir -a adapter_file -w window -m min_len
         -i path to directory with fastq files
@@ -95,20 +97,20 @@ The following script extracts these statistics from the colsole output saved as 
     #!/bin/bash
     # make sure R is installed and Rscript is availble in the $PATH
     Rscript src/R/extract_trimstat.R --help
-
+    ```
+    ```text
     Options:
-        -e ERROR_LOG, --error_log=ERROR_LOG
-                Path to the Trimmomatic error log file
+    -e ERROR_LOG, --error_log=ERROR_LOG
+            Path to the Trimmomatic error log file
 
-        -c CONSOLE_LOG, --console_log=CONSOLE_LOG
-                Path to the Trimmomatic console log file
+    -c CONSOLE_LOG, --console_log=CONSOLE_LOG
+            Path to the Trimmomatic console log file
 
-        -o OUT_DIR, --out_dir=OUT_DIR
-                A folder where the output will be written
+    -o OUT_DIR, --out_dir=OUT_DIR
+            A folder where the output will be written
 
-        -h, --help
-                Show this help message and exit
-
+    -h, --help
+            Show this help message and exit
     ```
 
 * Run as a slurm job (UVA internal on Rivanna)
@@ -146,7 +148,8 @@ gunzip -d snp142.txt.gz
     ```bash
     #!/bin/bash
     bash src/sh/prepare_genome_build.sh  --help
-
+    ```
+    ```text
     Usage: 
     src/sh/prepare_genome_build.sh -i genome_fasta -s SNP_file -o out_dir -p hisat2_extract_snps_haplotypes_UCSC.py
         -i Path to the reference genome (to be used for the alignment)
@@ -177,7 +180,7 @@ wget https://cloud.biohpc.swmed.edu/index.php/s/grcm38_snp/download -O Hisat2_pr
 tar -xf Hisat2_prebuilt_GRCM38_snp.tar.gz
 
 # genome index with transcripts and SNPs
-$wget https://cloud.biohpc.swmed.edu/index.php/s/grcm38_snp_tran/download -O Hisat2_prebuilt_GRCM38_transcripts_snp.tar.gz
+wget https://cloud.biohpc.swmed.edu/index.php/s/grcm38_snp_tran/download -O Hisat2_prebuilt_GRCM38_transcripts_snp.tar.gz
 tar -xf Hisat2_prebuilt_GRCM38_transcripts_snp.tar.gz
 
 # delete the .tar.gz only keeping the extracted folder
@@ -193,7 +196,8 @@ The above commands can be used to download and decompress the taballs from the H
     ```bash
     #!/bin/bash
     bash src/sh/align_reads.sh --help
-
+    ```
+    ```text
     Usage: 
     src/sh/align_reads.sh -i target_dir -x genome_index_path -n genome_index_name  -o out_dir
         -i Path to the target directory where trimmed fastq files are stored
@@ -218,7 +222,8 @@ Note:
     ```bash
     #!/bin/bash
     bash src/sh/unsorted_sam_to_sorted_bam.sh --help
-
+    ```
+    ```text
     Usage: 
     src/sh/unsorted_sam_to_sorted_bam.sh -i target_dir -o out_dir
         -i Path to the target directory where unsorted sam files are present
@@ -240,7 +245,8 @@ The user may modify the `target_dir`, and `out_dir` in the slurm script as neede
     ```bash
     #!/bin/bash
     bash src/sh/get_alignment_stat.sh --help
-
+    ```
+    ```text
     Usage: 
     src/sh/get_alignment_stat.sh -i target_dir -o out_dir
         -i Path to the target directory where unsorted sam files are present
@@ -261,7 +267,8 @@ The user may modify the `target_dir`, and `out_dir` in the slurm script as neede
     ```bash
     #!/bin/bash
     Rscript src/R/summarize_alignment_stats.R --help
-
+    ```
+    ```text
     Options:
     -i INPUT, --input=INPUT
             Path to the folder where the outputs from 'get_alignment_stat.sh' are stored
@@ -271,7 +278,6 @@ The user may modify the `target_dir`, and `out_dir` in the slurm script as neede
 
     -h, --help
             Show this help message and exit
-
     ```
 
 ## Extra note: Rivanna UVA internal
