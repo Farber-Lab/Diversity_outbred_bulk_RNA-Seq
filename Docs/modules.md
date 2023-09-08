@@ -1,8 +1,14 @@
 # Workflow for the RNA-Seq Analysis
 
-This workflow is designed towards the automated processing of large numbers of samples. Each step below are executed in batch mode.
-The following scripts are assumed to be executed from the project folder path `.../Diversity_outbred_bulk_RNA-Seq/`. 
-UVA internal users, running slurm jobs, please verify the account information before starting. Accurate account name should be updated at the `#SBATCH -A <account name>` attribute. The default value in this case is `cphg-farber` (only available to the members of the Farber lab).
+This workflow is designed for automated processing of large numbers of samples. Each step below are executed in batch mode.
+The following scripts are to be executed from the project folder path `.../Diversity_outbred_bulk_RNA-Seq/`. 
+
+---
+UVA internal users, running slurm jobs, please verify the `Rivanna` account information before starting. `#SBATCH -A <account name>` needs to be updated with accurate account name in each slurm script located in the  `src/slurm`. The default value, `cphg-farber` is only available to the members of the Farber lab.
+
+---
+
+# Modules
 
 ## QC of the FASTQ files
 
