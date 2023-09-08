@@ -3,14 +3,7 @@
 This workflow is designed for automated processing of large numbers of samples. Each step below are executed in batch mode.
 The following scripts are to be executed from the project folder path `.../Diversity_outbred_bulk_RNA-Seq/`. 
 
----
-UVA internal users, running slurm jobs, please verify the `Rivanna` account information before starting. `#SBATCH -A <account name>` needs to be updated with accurate account name in each slurm script located in the  `src/slurm`. The default value, `cphg-farber` is only available to the members of the Farber lab.
-
----
-
-# Modules
-
-## QC of the FASTQ files
+## 1. QC of the FASTQ files
 
 This step is to be performed twice, once on the raw fastq files (before trimming) and once after trimming.
 
@@ -37,7 +30,7 @@ sbatch src/slurm/run_fastqc.slurm
 ```
 If needed, the user should change the values of  `target_dir`, `out_dir`, and `run_mode` in the slurm script.
 
-## Combine FASTQC results with MultiQC
+### Combine FASTQC results with MultiQC
 
 * Run MultiQC on local computing environment
 
@@ -60,7 +53,7 @@ sbatch src/slurm/run_multiqc.slurm
 ```
 If needed, the user should change the values of  `target_dir`, and `out_dir`in the slurm script.
 
-## Drop low quality reads and adapter sequences
+### Drop low quality reads and adapter sequences
 
 Make sure to identify the sequencing platform and the library preparation protocol, this information helps us to identify appropiate adapters and contaminents that must be removed. Generally, the sequencing protocol utilizes **TruSeq Stranded mRNA Kit**, supported accross a number of Illumina platform. A set of standard TruSeq adapters are provided as `Illumina_TruSeq_adapters.fasta`. More more details on Illumina adapters visit official documentation. 
 
@@ -91,7 +84,7 @@ sbatch src/slurm/trim_fastq.slurm
 ```
 If needed, the user should change the values of  `target_dir`, `out_dir`, `adapter_file`, `window` and `min_len` in the slurm script.
 
-## Extract trim statistics from the trimmomatic logs
+### Extract trim statistics from the trimmomatic logs
 
 Trimmomatic provides a number of useful statiscs including the input reads, reads remaining after trimming and dropped reads. However, these statics are part of the console output. 
 The following script extracts these statistics from the colsole output saved as a text file or log files.
@@ -126,7 +119,7 @@ sbatch src/slurm/extract_trimstat.slurm
 ```
 Default values for the arguments are set on the R script. The user may set these variables in the slurm script as needed.
 
-## Align RNA-Seq reads
+## 2. Align RNA-Seq reads
 
 ### Prepare genome build
 
@@ -262,8 +255,12 @@ sbatch src/slurm/get_alignment_stat.slurm
 ```
 The user may modify the `target_dir`, and `out_dir` in the slurm script as needed.
 
-## Extra note: Running slurm jobs in interactive mode (Rivanna UVA internal)
+## Extra note: Rivanna UVA internal
 
+### Account setup
+When running slurm jobs, please verify the `Rivanna` account information before starting. `#SBATCH -A <account name>` needs to be updated with accurate account name in each slurm script located in the  `src/slurm`. The default value, `cphg-farber` is only available to the members of the Farber lab.
+
+### Running jobs interactively
 UVA users can run above modules interactively on Rivanna using the following code. For more details on slurm job management in UVA HPC systems, see the [UVA Research Compute page](https://www.rc.virginia.edu/userinfo/rivanna/slurm/)
 
 ```bash
