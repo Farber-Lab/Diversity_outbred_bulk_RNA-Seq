@@ -70,7 +70,7 @@ for sample in "${samples[@]}"; do
         echo "REV:${rev_paired}"
         echo "Starting alignment"
         # --dta enables downstrap triptome assembly
-        cmd="hisat2 --dta -x ${genome_index} -1 ${fwd_paired} -2 ${rev_paired} -S ${sample_out_dir}/${sample}_aligned_unsorted.sam"
+        cmd="hisat2 --dta --threads 10 -x ${genome_index} -1 ${fwd_paired} -2 ${rev_paired} -S ${sample_out_dir}/${sample}_aligned_unsorted.sam"
         echo "Running:${cmd}"
         eval "${cmd}"
     fi
