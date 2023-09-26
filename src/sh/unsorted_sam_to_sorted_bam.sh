@@ -58,14 +58,17 @@ for sample in "${samples[@]}"; do
         sample_sam=${sample_files[0]}
         echo "Sample_sam:${sample_sam}"
         echo "Processing SAM"
-        cmd_sam2bam="samtools view ${sample_sam} -O BAM -o ${sample_out_dir}/${sample}_aligned_unsorted.bam --threads 10"
+        cmd_sam2bam="samtools view --threads 20 ${sample_sam} -O BAM -o ${sample_out_dir}/${sample}_aligned_unsorted.bam"
         echo "Convering SAM to BAM:${cmd_sam2bam}"
         eval "${cmd_sam2bam}"
         sample_bam=${sample_out_dir}/${sample}_aligned_unsorted.bam
         sample_bam=$(realpath ${sample_bam})
-        cmd_sortbam="samtools sort ${sample_bam} -O BAM  -o ${sample_out_dir}/${sample}_aligned_sorted.bam --write-index --threads 10"
-        echo "Soring BAM:${cmd_sortbam}"
+        cmd_sortbam="samtools sort --threads 20 ${sample_bam} -O BAM  -o ${sample_out_dir}/${sample}_aligned_sorted.bam"
+        echo "Sorting BAM:${cmd_sortbam}"
         eval "${cmd_sortbam}"
+        cmd_indexbam="samtools index -b -@ 20 ${sample_out_dir}/${sample}_aligned_sorted.bam"
+        echo "Indexing BAM:${cmd_indexbam}"
+        eval "${cmd_indexbam}"
     fi
     
 done

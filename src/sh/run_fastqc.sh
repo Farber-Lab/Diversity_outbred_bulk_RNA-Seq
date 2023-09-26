@@ -67,7 +67,17 @@ echo "found:${#files[@]} files"
 for f in ${files[@]}
 do
 echo "Processing: ${f}"
+file_name=$(basename ${f})
+sample="${file_name%.fastq.gz}"
+sample_fqc_zip="${out_dir}/${sample}_fastqc.zip"
+sample_fqc_html="${out_dir}/${sample}_fastqc.html"
+if [ -f "${sample_fqc_zip}" ] || [ -f "${sample_fqc_html}" ]
+then
+echo "output exists in the destination skipping sample"
+else
+echo "output does't exists in the destination, processing"
 fastqc -t 10 $(realpath ${f}) -o .
+fi
 done
 
 echo "Done!"

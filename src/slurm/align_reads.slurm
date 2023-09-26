@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --nodes=1
-#SBATCH --ntasks-per-node=16
+#SBATCH --ntasks-per-node=10
 #SBATCH -p largemem
 #SBATCH -t 48:00:00
 #SBATCH -A cphg-farber
@@ -15,10 +15,10 @@ module load hisat2/2.1.0
 
 #------------
 # Setup
-target_dir="/project/farber_lab/Users/Current_users/Saikat_B/Diversity_outbred_bulk_RNA-Seq/Results/Fastq_trimmed/"
-genome_index_path="/project/farber_lab/Users/Current_users/Saikat_B/Diversity_outbred_bulk_RNA-Seq/Results/Genome_build_snp/grcm38_snp"
+target_dir="Results/Fastq_trimmed/"
+genome_index_path="Results/Genome_build_snp/grcm38_snp"
 genome_index_name="genome_snp"
-out_dir="/project/farber_lab/Users/Current_users/Saikat_B/Diversity_outbred_bulk_RNA-Seq/Results/Alignment_GRCm38_snp"
+out_dir="Results/Alignment_GRCm38_snp"
 
 #--------------
 # align reads

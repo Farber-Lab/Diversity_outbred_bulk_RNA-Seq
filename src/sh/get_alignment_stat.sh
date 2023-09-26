@@ -28,7 +28,7 @@ then
 fi
 
 
-# Begin script in case all parameters are correct
+# Begin script in case all parameters are corrects
 now=$(date)
 echo "_________________________"
 echo "${now}"
@@ -38,7 +38,6 @@ echo "Target: ${target_dir}"
 mkdir -p ${out_dir}
 out_dir=$(realpath ${out_dir})
 echo "out_dir: ${out_dir}"
-cd ${out_dir}
 echo "_________________________"
 
 echo "Scanning target directory for samples"
@@ -50,21 +49,15 @@ echo "found:${#samples[@]} samples"
 
 
 for sample in "${samples[@]}"; do
-    echo "Processing sample=${sample}"
-    sample_out_dir=${out_dir}/${sample}/
-    if [ -d "$sample_out_dir" ]; then
-        echo "Folder exists in the destination skipping sample"
-    else
-        echo "Creating ${sample_out_dir}"
-        mkdir -p ${sample_out_dir}
-        sample_files=($(find ${target_dir}/${sample} | grep -i "_sorted.bam"))
-        sample_bam=${sample_files[0]}
-        echo "Sample_BAM:${sample_bam}"
-        echo "Fetching statistics"
-        cmd_flagstat="samtools flagstat -@ 10 ${sample_bam} > ${sample_out_dir}/${sample}_bamstat.txt"
-        echo "Running:${cmd_flagstat}"
-        eval "${cmd_flagstat}"
-    fi
+   echo "Processing sample=${sample}"
+   sample_files=($(find ${target_dir}/${sample} | grep -i "_sorted.bam"))
+   sample_bam=${sample_files[0]}
+   echo "Sample_BAM:${sample_bam}"
+   echo "Fetching statistics for sample ${sample}"
+   cmd_flagstat="samtools flagstat -@ 10 ${sample_bam} > ${out_dir}/${sample}_stat.txt"
+   echo "Running:${cmd_flagstat}"
+   eval "${cmd_flagstat}"
+    
     
 done
 

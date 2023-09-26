@@ -15,8 +15,8 @@ module load trimmomatic/0.39
 #------------
 # Setup
 target_dir="/project/farber_lab/Users/Current_users/Saikat_B/AN00004532/"
-out_dir="/project/farber_lab/Users/Current_users/Saikat_B/Diversity_outbred_bulk_RNA-Seq/Results/"
-adapter_file="/project/farber_lab/Users/Current_users/Saikat_B/Diversity_outbred_bulk_RNA-Seq/Illumina_TruSeq_adapters.fasta"
+out_dir="Results/"
+adapter_file="Illumina_TruSeq_adapters.fasta"
 window="4:25"
 min_len="50"
 trimmomatic="$EBROOTTRIMMOMATIC/trimmomatic-0.39.jar"

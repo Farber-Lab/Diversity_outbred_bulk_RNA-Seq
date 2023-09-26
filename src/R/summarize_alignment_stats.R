@@ -48,7 +48,7 @@ if (is.null(args$input)) {
 
 
 # check for output directory
-out_dir <- paste0(getwd(),"/",args$out_dir)
+out_dir <- args$out_dir
 
 logger::log_info(
   "searching out_dir:\n",
@@ -73,12 +73,12 @@ all_files_in_target <- sapply(list.files(args$input, recursive=TRUE),
   }
 )
 
-logger::log_info("Locating files with pattern '_bamstat.txt'")
+logger::log_info("Locating files with pattern '_stat.txt'")
 
 # only get the files with pattern "_bamstat.txt" 
 ## according to 'get_alignment_stat.sh' output format
 bamstat_files <- grep(
-  pattern="_bamstat.txt", 
+  pattern="_stat.txt", 
   x=all_files_in_target, 
   value=TRUE
 )
