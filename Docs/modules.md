@@ -30,7 +30,7 @@ This step is to be performed twice, once on the raw fastq files (before trimming
     #!/bin/bash
     sbatch src/slurm/run_fastqc.slurm
     ```
-If needed, the user should change the values of  `target_dir`, `out_dir`, and `run_mode` in the slurm script.
+    If needed, the user should change the values of  `target_dir`, `out_dir`, and `run_mode` in the slurm script.
 
 ### 1.2 Combine FASTQC results with MultiQC
 
@@ -54,7 +54,7 @@ If needed, the user should change the values of  `target_dir`, `out_dir`, and `r
     #!/bin/bash
     sbatch src/slurm/run_multiqc.slurm
     ```
-If needed, the user should change the values of  `target_dir`, and `out_dir`in the slurm script.
+    If needed, the user should change the values of  `target_dir`, and `out_dir`in the slurm script.
 
 ### 1.3 Drop low quality reads and adapter sequences
 
@@ -78,7 +78,7 @@ Make sure to identify the sequencing platform and the library preparation protoc
         -t Trimmomatic alias
     ```
 
-For default installations of Trimmomatic v0.39, the **trimmomatic alias** shoud be `trimmomatic-0.39.jar` or it can be the path to `trimmomatic-<version>.jar`. For more details on the parameters, see the [Trimmomatic manual](http://www.usadellab.org/cms/?page=trimmomatic).
+    For default installations of Trimmomatic v0.39, the **trimmomatic alias** shoud be `trimmomatic-0.39.jar` or it can be the path to `trimmomatic-<version>.jar`. For more details on the parameters, see the [Trimmomatic manual](http://www.usadellab.org/cms/?page=trimmomatic).
 
 * Run Trimmomatic as a slurm job (UVA internal on Rivanna)
 
@@ -86,7 +86,7 @@ For default installations of Trimmomatic v0.39, the **trimmomatic alias** shoud 
     #!/bin/bash
     sbatch src/slurm/trim_fastq.slurm
     ```
-If needed, the user should change the values of  `target_dir`, `out_dir`, `adapter_file`, `window` and `min_len` in the slurm script.
+    If needed, the user should change the values of  `target_dir`, `out_dir`, `adapter_file`, `window` and `min_len` in the slurm script.
 
 ### 1.4 Extract trim statistics from the trimmomatic logs
 
@@ -121,7 +121,7 @@ The following script extracts these statistics from the colsole output saved as 
     #!/bin/bash
     sbatch src/slurm/extract_trimstat.slurm
     ```
-Default values for the arguments are set on the R script. The user may set these variables in the slurm script as needed.
+    Default values for the arguments are set on the R script. The user may set these variables in the slurm script as needed.
 
 ## 2. Align RNA-Seq reads
 
@@ -160,7 +160,7 @@ gunzip -d snp142.txt.gz
         -o Path to the directory where the outputs will be written
     ```
 
-Note: `hisat2_extract_snps_haplotypes_UCSC.py` is  originally distributed through Hisat2, and has been made available  in this repository at [src/Py/hisat2_extract_snps_haplotypes_UCSC.py](src/Py/hisat2_extract_snps_haplotypes_UCSC.py), under GNU General Public License. The originial script can be found in the [Hisat2 repository](https://github.com/DaehwanKimLab/hisat2/blob/master/hisat2_extract_snps_haplotypes_UCSC.py).
+    Note: `hisat2_extract_snps_haplotypes_UCSC.py` is  originally distributed through Hisat2, and has been made available  in this repository at [src/Py/hisat2_extract_snps_haplotypes_UCSC.py](src/Py/hisat2_extract_snps_haplotypes_UCSC.py), under GNU General Public License. The originial script can be found in the [Hisat2 repository](https://github.com/DaehwanKimLab/hisat2/blob/master/hisat2_extract_snps_haplotypes_UCSC.py).
 
 
 * Prepare genome build through a slurm job (UVA internal on Rivanna)
@@ -169,7 +169,7 @@ Note: `hisat2_extract_snps_haplotypes_UCSC.py` is  originally distributed throug
     #!/bin/bash
     sbatch src/slurm/prepare_genome_build.slurm
     ```
-If needed, the user should chage the values of `genome_fasta`,`snp_file`,`python_script` and `out_dir` in the slurm script.
+    If needed, the user should chage the values of `genome_fasta`,`snp_file`,`python_script` and `out_dir` in the slurm script.
 
 ---
 
@@ -207,8 +207,8 @@ The above commands can be used to download and decompress the taballs from the H
         -n Name of the Hisat2 genome index
         -o Path to the directory where the outputs will be written
     ```
-Note: 
-`-x genome_index_path` is equivalent to setting the `HISAT2_INDEXES` environment variable; where as `-n genome_index_name` should specify the base name of the index files.  The basename is the name of any of the index files up to but not including the final .1.ht2 / etc. `-i target_dir` should be set on the output directory  generated through the `src/sh/trim_fastq.sh` script.
+    Note: 
+    `-x genome_index_path` is equivalent to setting the `HISAT2_INDEXES` environment variable; where as `-n genome_index_name` should specify the base name of the index files.  The basename is the name of any of the index files up to but not including the final .1.ht2 / etc. `-i target_dir` should be set on the output directory  generated through the `src/sh/trim_fastq.sh` script.
 
 * Perform sequence alignment through a slurm job (UVA internal on Rivanna)
 
@@ -216,6 +216,7 @@ Note:
     #!/bin/bash
     sbatch src/slurm/align_reads.slurm 
     ```
+    The user may modify the `target_dir`, `genome_index_path`, `genome_index_name`, and `out_dir` in the slurm script as needed.
 
 ### 2.3 Generate sorted and indexed BAM files
 
@@ -238,7 +239,7 @@ Note:
     #!/bin/bash
     sbatch src/slurm/unsoerted_sam_to_sorted_bam.slurm 
     ```
-The user may modify the `target_dir`, and `out_dir` in the slurm script as needed.
+    The user may modify the `target_dir`, and `out_dir` in the slurm script as needed.
 
 ### 2.4 Get alignment statistics from the sorted BAM files
 
@@ -261,7 +262,7 @@ The user may modify the `target_dir`, and `out_dir` in the slurm script as neede
     #!/bin/bash
     sbatch src/slurm/get_alignment_stat.slurm
     ```
-The user may modify the `target_dir`, and `out_dir` in the slurm script as needed.
+    The user may modify the `input_dir`, and `output_dir` in the slurm script as needed.
 
 ### 2.5 Summarize alignment statistics
 
@@ -281,5 +282,39 @@ The user may modify the `target_dir`, and `out_dir` in the slurm script as neede
     -h, --help
             Show this help message and exit
     ```
+* Summarize alignment statistics with a slurm job (UVA internal on Rivanna)
+    ```bash
+    #!/bin/bash
+    sbatch src/slurm/summarize_alignment_stats.slurm
+    ```
+    The user may modify the `target_dir`, and `out_dir` in the slurm script as needed.
 
 
+## 3. Assemble RNA-Seq alignments into potential transcripts
+
+### 3.1 Compute transcript abundances
+    
+* compute transcript abundances in a local environment
+
+    ```bash
+    #!/bin/bash
+    bash src/sh/compute_transcript_abundance.sh
+    ```
+    ```text
+    Usage: 
+    src/sh/compute_transcript_abundance.sh -i target_dir -r ref_annotation -o out_dir
+        -i Path to the target directory where the sorted BAM files are present
+        -r Path to the reference genome annotation (GTF)
+        -o Path to the directory where the outputs will be written
+    ```
+* compute transcript abundances with a slurm job (UVA internal on Rivanna)
+    
+    ```bash
+    #!/bin/bash
+    sbatch src/slurm/compute_transcript_abundance.slurm
+    ```
+    The user may modify the `target_dir`, `annotation`, and `out_dir` in the slurm script as needed.
+
+---
+Note: This step needs a reference annotation file that can be downloaded from [Gencode](https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M25/gencode.vM25.annotation.gtf.gz
+) and other sources.
