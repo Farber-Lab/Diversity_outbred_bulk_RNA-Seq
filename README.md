@@ -24,6 +24,7 @@ The following dependencies should be installed in the computing environment and 
 * trimmomatic/0.39
 * hisat2/2.1.0
 * Samtools/1.12
+* stringtie/2.1.0
 
 #### Language interpreters
 * python/3.8.8

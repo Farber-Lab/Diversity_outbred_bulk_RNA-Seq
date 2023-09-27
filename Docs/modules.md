@@ -316,5 +316,13 @@ The above commands can be used to download and decompress the taballs from the H
     The user may modify the `target_dir`, `annotation`, and `out_dir` in the slurm script as needed.
 
 ---
-Note: This step needs a reference annotation file that can be downloaded from [Gencode](https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M25/gencode.vM25.annotation.gtf.gz
-) and other sources.
+Note: 
+* This step needs a reference annotation file that can be downloaded from the UCSC [goldenpath/mm10](https://hgdownload.soe.ucsc.edu/goldenPath/mm10/bigZips/genes/) and other online sources.
+
+* The user must make sure that the chromosome names in the BAM and the supplied GTF are consistent (i.e. either `chr1`..`chrM` or `1`..`M`).
+
+* When using the prebuilt GRCm38 genome index provided by Hisat2 (for alignment), the user must update the GTF file to get consistent chromosome names (i.e `chr1` --> `1`).
+    ```bash
+    #!/bin/bash
+    sed 's/\bchr\([0-9XYM]*\)/\1/' mm10.ncbiRefSeq.gtf > mm10.ncbi_RefSeq_clean.gtf
+    ```
