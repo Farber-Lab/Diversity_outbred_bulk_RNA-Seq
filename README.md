@@ -7,7 +7,7 @@ Clone this repository in your computing environment
 ```bash
 #!/usr/bin/bash
 # make sure git is set up to handle SSH login
-git clone git@github.com:Sktbanerjee1/Diversity_outbred_bulk_RNA-Seq.git
+git clone git@github.com:Farber-Lab/Diversity_outbred_bulk_RNA-Seq.git
 cd Diversity_outbred_bulk_RNA-Seq/
 ```
 ---
