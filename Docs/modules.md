@@ -298,11 +298,11 @@ The above commands can be used to download and decompress the taballs from the H
 
     ```bash
     #!/bin/bash
-    bash src/sh/compute_transcript_abundance.sh
+    bash src/sh/compute_transcript_assembly.sh
     ```
     ```text
     Usage: 
-    src/sh/compute_transcript_abundance.sh -i target_dir -r ref_annotation -o out_dir
+    src/sh/compute_transcript_assembly.sh -i target_dir -r ref_annotation -o out_dir
         -i Path to the target directory where the sorted BAM files are present
         -r Path to the reference genome annotation (GTF)
         -o Path to the directory where the outputs will be written
@@ -311,7 +311,7 @@ The above commands can be used to download and decompress the taballs from the H
     
     ```bash
     #!/bin/bash
-    sbatch src/slurm/compute_transcript_abundance.slurm
+    sbatch src/slurm/compute_transcript_assembly.slurm
     ```
     The user may modify the `target_dir`, `annotation`, and `out_dir` in the slurm script as needed.
 

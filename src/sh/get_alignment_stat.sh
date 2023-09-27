@@ -50,7 +50,7 @@ echo "found:${#samples[@]} samples"
 
 for sample in "${samples[@]}"; do
    echo "Processing sample=${sample}"
-   sample_files=($(find ${target_dir}/${sample} | grep -i "_sorted.bam"))
+   sample_files=($(find ${target_dir}/${sample} | grep -i "_sorted\.bam$"))
    sample_bam=${sample_files[0]}
    echo "Sample_BAM:${sample_bam}"
    echo "Fetching statistics for sample ${sample}"

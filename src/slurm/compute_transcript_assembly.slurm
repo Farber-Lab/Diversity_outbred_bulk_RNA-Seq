@@ -4,8 +4,8 @@
 #SBATCH -p largemem
 #SBATCH -t 48:00:00
 #SBATCH -A cphg-farber
-#SBATCH -o job_logs/compute_transcript_abundance.output
-#SBATCH -e job_logs/compute_transcript_abundance.error
+#SBATCH -o job_logs/compute_transcript_assembly.output
+#SBATCH -e job_logs/compute_transcript_assembly.error
 
 #--------
 # load stringtie
@@ -16,8 +16,8 @@ module load stringtie/2.1.0
 # Setup
 target_dir="Results/Alignment_GRCm38_snp_BAM/"
 annotation="Results/Ref_annotations/mm10.ncbi_RefSeq_clean.gtf"
-out_dir="Results/Abudances"
+out_dir="Results/transcript_assembly"
 
 #--------
 # run stringtie
-bash src/sh/compute_transcript_abundance.sh -i ${target_dir} -r ${annotation} -o ${out_dir}
+bash src/sh/compute_transcript_assembly.sh -i ${target_dir} -r ${annotation} -o ${out_dir}

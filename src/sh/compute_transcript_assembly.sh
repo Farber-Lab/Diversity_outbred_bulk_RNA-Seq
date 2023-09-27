@@ -40,7 +40,7 @@ echo "out_dir: ${out_dir}"
 echo "_________________________"
 
 echo "Scanning target directory for samples"
-files=$(find ${target_dir} | grep -i "_aligned_sorted.bam")
+files=$(find ${target_dir} | grep -i "_aligned_sorted\.bam$")
 
 echo "Extracting sample names"
 samples=($(echo "$files" | awk -F'/' '{split($NF, a, "_"); print a[1]}' | sort | uniq))
@@ -54,7 +54,7 @@ for sample in "${samples[@]}"; do
     else
         echo "Creating ${sample_out_dir}"
         mkdir -p ${sample_out_dir}
-        sample_file=($(find ${target_dir}/${sample} | grep -i "_aligned_sorted.bam"))
+        sample_file=($(find ${target_dir}/${sample} -type f | grep -i "_aligned_sorted\.bam$" ))
         bam_file=${sample_file[0]}
         echo "BAM:${bam_file}"
         echo "Starting assembly"
