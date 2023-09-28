@@ -349,3 +349,7 @@ Note:
     sbatch src/slurm/merge_transcript_assemblies.slurm
     ```
     The user may modify the `target_dir`, `annotation`, and `out_dir` in the slurm script as needed.
+
+### 3.3 Create sample-level transcript assemby using the concensus assembly
+
+Generate individual sample-level assembly using the script from the section [3.1](###3.1-create-sample-level-transcript-assemby); the `ref_annotation` in this case is the merged gtf generated from the section [3.2](###3.2-merge-sample-level-assemblies-into-a-concensus-assembly-of-non-redundant-transcript). An additional slurm script  `compute_transcript_assembly_consensus.slurm` has been provided for this purpose. As in the section 3.1, this script uses the `src/sh/compute_transcript_assembly.sh`.
