@@ -290,11 +290,11 @@ The above commands can be used to download and decompress the taballs from the H
     The user may modify the `target_dir`, and `out_dir` in the slurm script as needed.
 
 
-## 3. Assemble RNA-Seq alignments into potential transcripts
+## 3. Assemble RNA-Seq alignments into transcripts
 
-### 3.1 Compute transcript abundances
+### 3.1 Create sample-level transcript assemby
     
-* compute transcript abundances in a local environment
+* Create sample-level transcript assemby in a local environment
 
     ```bash
     #!/bin/bash
@@ -307,7 +307,7 @@ The above commands can be used to download and decompress the taballs from the H
         -r Path to the reference genome annotation (GTF)
         -o Path to the directory where the outputs will be written
     ```
-* compute transcript abundances with a slurm job (UVA internal on Rivanna)
+* Create sample-level transcript assemby with a slurm job (UVA internal on Rivanna)
     
     ```bash
     #!/bin/bash
@@ -326,3 +326,26 @@ Note:
     #!/bin/bash
     sed 's/\bchr\([0-9XYM]*\)/\1/' mm10.ncbiRefSeq.gtf > mm10.ncbi_RefSeq_clean.gtf
     ```
+
+### 3.2 Merge sample-level assemblies into a concensus assembly of non redundant transcripts
+
+* Merge sample assemblies in a local environment
+
+    ```bash
+    #!/bin/bash
+    bash src/sh/merge_transcript_assemblies.sh
+    ```
+
+    ```text
+    Usage: 
+    src/sh/merge_transcript_assemblies.sh -i target_dir -r ref_annotation -o out_dir
+        -i Path to the target directory sample-level gtf files are present
+        -r Path to the reference genome annotation (GTF)
+        -o Path to the directory where the outputs will be written
+    ```
+* Merge sample assemblies with a slurm job (UVA internal on Rivanna)
+    ```bash
+    #!/bin/bash
+    sbatch src/slurm/merge_transcript_assemblies.slurm
+    ```
+    The user may modify the `target_dir`, `annotation`, and `out_dir` in the slurm script as needed.
