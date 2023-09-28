@@ -298,7 +298,7 @@ The above commands can be used to download and decompress the taballs from the H
 
     ```bash
     #!/bin/bash
-    bash src/sh/compute_transcript_assembly.sh
+    bash src/sh/compute_transcript_assembly.sh --help
     ```
     ```text
     Usage: 
@@ -333,7 +333,7 @@ Note:
 
     ```bash
     #!/bin/bash
-    bash src/sh/merge_transcript_assemblies.sh
+    bash src/sh/merge_transcript_assemblies.sh --help
     ```
 
     ```text
