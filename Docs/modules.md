@@ -353,3 +353,29 @@ Note:
 ### 3.3 Create sample-level transcript assemby using the concensus assembly
 
 Generate individual sample-level assembly using the script from the section [3.1](###3.1-create-sample-level-transcript-assemby); the `ref_annotation` in this case is the merged gtf generated from the section [3.2](###3.2-merge-sample-level-assemblies-into-a-concensus-assembly-of-non-redundant-transcript). An additional slurm script  `compute_transcript_assembly_consensus.slurm` has been provided for this purpose. As in the section 3.1, this script uses the `src/sh/compute_transcript_assembly.sh`.
+
+## 4. Get abundances
+
+### 4.1 Merge and filter gene level abundances
+
+* Merge and filter gene level abundances in a local environment
+
+    ```bash
+    #!/bin/bash
+    bash src/sh/merge_and_filter_gene_abundances.sh --help
+    ```
+    ```text
+    Usage: 
+    src/sh/merge_and_filter_gene_abundances.sh -i target_dir -o out_dir
+        -i Path to the target directory where the *gene_abundance.tab files are present (results from the previous step)
+        -o Path to the directory where the outputs will be written
+    ```
+* Merge and filter gene level abundances with a slurm job (UVA internal on Rivanna)
+
+    Due to the non-resource intensive nature of the above script, adedicated slurm script is not provided. Users are encouraged to run this script in the interactive mode (with `ijob` command). For more details, see [notes for rivanna Users](Rivanna_UVA_internal.md).
+
+    ```bash
+    #!/bin/bash
+    # example
+    ijob -A <account> -p <partition> -N 1 bash bash src/sh/merge_and_filter_gene_abundances.sh -i <target_dir> -o <out_dir>
+    ```
