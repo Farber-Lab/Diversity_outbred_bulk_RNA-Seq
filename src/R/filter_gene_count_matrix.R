@@ -10,8 +10,7 @@ deps <- c(
   "dplyr",
   "logger",
   "optparse",
-  "logger",
-  "ggplot2"
+  "logger"
 )
 
 dependency_manager(deps)
@@ -87,7 +86,7 @@ genes_over6reads_over_twenty_percent_samps= append(genes_over6reads_over_twenty_
 }
 }
 
-genes_over6reads_over_twenty_percent_samps <- plyr::ldply(
+genes_over6reads_over_twenty_percent_samps_df <- plyr::ldply(
     genes_over6reads_over_twenty_percent_samps, function(x){
         tmp <- strsplit(x, "\\|")[[1]]
         data.frame(id=tmp[1], gene=tmp[2])
@@ -98,7 +97,9 @@ gene_list <- read.csv(args$gene_list, stringsAsFactors=F)
 
 logger::log_info("Filtering gene abundance matrix")
 
-z=unlist(genes_over6reads_over38samps[which(genes_over6reads_over_twenty_percent_samps$id %in% gene_list[,1])])
+idx <- which(genes_over6reads_over_twenty_percent_samps_df$id %in% gene_list[,1])
+
+z=unlist(genes_over6reads_over_twenty_percent_samps[idx])
 
 gene_matrix_final=gene_matrix[which(gene_matrix[,1] %in% z),]
 

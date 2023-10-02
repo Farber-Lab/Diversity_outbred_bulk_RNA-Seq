@@ -403,11 +403,12 @@ Generate individual sample-level assembly using the script from the section 3.1;
     ```
     The user may modify the `target_dir` and `out_dir` in the slurm script as needed.
 
-### 4.3 Filter gene  level count matrix
+### 4.3 Filter gene level count matrix
 
 * Filter gene  level count matrix with a R script
 
     ```bash
+    #!/bin/bash
     Rscript src/R/filter_gene_count_matrix.R --help
     ```
     
@@ -426,5 +427,28 @@ Generate individual sample-level assembly using the script from the section 3.1;
                 Show this help message and exit
     ```
 * Filter gene  level count matrix with a a slurm job (UVA internal on Rivanna):
+
+    Due to the non-resource intensive nature of the above script, adedicated slurm script is not provided. Users are encouraged to run this script in the interactive mode (with `ijob` command)
+
+### 4.4 Normalize gene level count matrix
+
+* Perform normalization with a R script
+    ```bash
+    #!/bin/bash
+    Rscript src/R/normalize_gene_count_matrix.R --help
+    ```
+
+    ```text
+    Options:
+        -i INPUT, --input=INPUT
+                Path to the gene_count_matrix.csv file is present
+
+        -o OUT_DIR, --out_dir=OUT_DIR
+                A folder where the output will be written
+
+        -h, --help
+                Show this help message and exit
+    ```
+* Perform normalization with a a slurm job (UVA internal on Rivanna):
 
     Due to the non-resource intensive nature of the above script, adedicated slurm script is not provided. Users are encouraged to run this script in the interactive mode (with `ijob` command)
