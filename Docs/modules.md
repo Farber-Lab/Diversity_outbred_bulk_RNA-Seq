@@ -380,7 +380,7 @@ Generate individual sample-level assembly using the script from the section 3.1;
     ijob -A <account> -p <partition> -N 1 bash bash src/sh/merge_and_filter_gene_abundances.sh -i <target_dir> -o <out_dir>
     ```
 
-### 4.2 Prepare transcript level count matrix
+### 4.2 Prepare gene and transcript level count matrix
 
 * Prepare count matrices in a local environment
     [stringtie](https://github.com/gpertea/stringtie/tree/master) provides a python script ([prepDE.py](../src/Py/prepDE.py)) that can easily convert the GTF files into count matrices. Using a custom script a list of the GTF files are prepared and then fed into this script.
@@ -402,3 +402,29 @@ Generate individual sample-level assembly using the script from the section 3.1;
     sbatch src/slurm/generate_count_matrices.slurm
     ```
     The user may modify the `target_dir` and `out_dir` in the slurm script as needed.
+
+### 4.3 Filter gene  level count matrix
+
+* Filter gene  level count matrix with a R script
+
+    ```bash
+    Rscript src/R/filter_gene_count_matrix.R --help
+    ```
+    
+    ```text
+    Options:
+        -i INPUT, --input=INPUT
+                Path to the gene_count_matrix.csv file is present
+
+        -g GENE_LIST, --gene_list=GENE_LIST
+                Path to the gene_count_filt_0.1TPM_twenty_percent file
+
+        -o OUT_DIR, --out_dir=OUT_DIR
+                A folder where the output will be written
+
+        -h, --help
+                Show this help message and exit
+    ```
+* Filter gene  level count matrix with a a slurm job (UVA internal on Rivanna):
+
+    Due to the non-resource intensive nature of the above script, adedicated slurm script is not provided. Users are encouraged to run this script in the interactive mode (with `ijob` command)
