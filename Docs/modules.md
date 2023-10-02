@@ -352,7 +352,7 @@ Note:
 
 ### 3.3 Create sample-level transcript assemby using the concensus assembly
 
-Generate individual sample-level assembly using the script from the section [3.1](###3.1-create-sample-level-transcript-assemby); the `ref_annotation` in this case is the merged gtf generated from the section [3.2](###3.2-merge-sample-level-assemblies-into-a-concensus-assembly-of-non-redundant-transcript). An additional slurm script  `compute_transcript_assembly_consensus.slurm` has been provided for this purpose. As in the section 3.1, this script uses the `src/sh/compute_transcript_assembly.sh`.
+Generate individual sample-level assembly using the script from the section 3.1; the `ref_annotation` in this case is the merged gtf generated from the section 3.2. An additional slurm script  `compute_transcript_assembly_consensus.slurm` has been provided for this purpose. As in the section 3.1, this script uses the `src/sh/compute_transcript_assembly.sh`.
 
 ## 4. Get abundances
 
@@ -379,3 +379,26 @@ Generate individual sample-level assembly using the script from the section [3.1
     # example
     ijob -A <account> -p <partition> -N 1 bash bash src/sh/merge_and_filter_gene_abundances.sh -i <target_dir> -o <out_dir>
     ```
+
+### 4.2 Prepare transcript level count matrix
+
+* Prepare count matrices in a local environment
+    [stringtie](https://github.com/gpertea/stringtie/tree/master) provides a python script ([prepDE.py](../src/Py/prepDE.py)) that can easily convert the GTF files into count matrices. Using a custom script a list of the GTF files are prepared and then fed into this script.
+
+    ```bash
+    #!/bin/bash
+    bash src/sh/generate_count_matrices.sh --help
+    ```
+    ```text
+    Usage: 
+    src/sh/generate_count_matrices.sh -i target_dir -o out_dir
+        -i Path to the target directory where the *_assembly.gtf files are present (results from the section 3.3)
+        -o Path to the directory where the outputs will be written
+    ```
+* Prepare count matrices with a slurm job (UVA internal on Rivanna)
+
+    ```bash
+    #!/bin/bash
+    sbatch src/slurm/generate_count_matrices.slurm
+    ```
+    The user may modify the `target_dir` and `out_dir` in the slurm script as needed.

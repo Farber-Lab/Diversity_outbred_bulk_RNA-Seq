@@ -27,6 +27,7 @@ The following dependencies should be installed in the computing environment and 
 * stringtie/2.1.0
 
 #### Language interpreters
+* python/2.7.16
 * python/3.8.8
 * R/4.2.1
 
