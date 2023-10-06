@@ -25,6 +25,7 @@ The following dependencies should be installed in the computing environment and 
 * hisat2/2.1.0
 * Samtools/1.12
 * stringtie/2.1.0
+* peer/1.3
 
 #### Language interpreters
 * python/2.7.16

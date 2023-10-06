@@ -452,3 +452,31 @@ Generate individual sample-level assembly using the script from the section 3.1;
 * Perform normalization with a a slurm job (UVA internal on Rivanna):
 
     Due to the non-resource intensive nature of the above script, adedicated slurm script is not provided. Users are encouraged to run this script in the interactive mode (with `ijob` command)
+
+## 5. Compute peer factors
+
+* Compute peer factors with a python script:
+
+    ``` bash
+    #!/bin/bash
+    python2 src/Py/compute_peer_factors.py --help
+    ```
+
+    ``` text
+    Options:
+    -h, --help            show this help message and exit
+    -i FILE, --input=FILE
+                            path to the input file
+    -o FOLDER, --output=FOLDER
+                            path to the output folder
+    ```
+
+    Note: A successful `Peer` installation provides a `python2.7` instance where the original C++ API can be accessed through ```import peer``` command. This script relies on using the peer associated python interpreter. The input file is  `gene_abundance_vst_qnorm_nohead.csv`generated in the previous step.
+
+* Compute peer factors with a slurm job (UVA internal on Rivanna):
+
+    ```
+    #!/bin/bash
+    sbatch src/slurm/compute_peer_factors.slurm
+    ```
+    The user may modify the `input` and `out_path` in the slurm script as needed.
