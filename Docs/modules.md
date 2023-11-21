@@ -1,7 +1,7 @@
 # Workflow for the RNA-Seq Analysis
 
 This workflow is designed for automated processing of large numbers of samples. Each step below are executed in batch mode.
-The following scripts are to be executed from the project folder path `.../Diversity_outbred_bulk_RNA-Seq/`. 
+The following scripts will be executed from the project folder path `.../Diversity_outbred_bulk_RNA-Seq/`. 
 
 ## 1. QC of the FASTQ files
 
@@ -9,7 +9,7 @@ The following scripts are to be executed from the project folder path `.../Diver
 
 This step is to be performed twice, once on the raw fastq files (before trimming) and once after trimming.
 
-* Run FASTQC on local computing environment
+* Run FASTQC on a local computing environment
 
     ```bash
     #!/bin/bash
@@ -34,7 +34,7 @@ This step is to be performed twice, once on the raw fastq files (before trimming
 
 ### 1.2 Combine FASTQC results with MultiQC
 
-* Run MultiQC on local computing environment
+* Run MultiQC on a local computing environment
 
     ```bash
     #!/bin/bash
@@ -56,11 +56,11 @@ This step is to be performed twice, once on the raw fastq files (before trimming
     ```
     If needed, the user should change the values of  `target_dir`, and `out_dir`in the slurm script.
 
-### 1.3 Drop low quality reads and adapter sequences
+### 1.3 Drop low-quality reads and adapter sequences
 
-Make sure to identify the sequencing platform and the library preparation protocol, this information helps us to identify appropiate adapters and contaminents that must be removed. Generally, the sequencing protocol utilizes **TruSeq Stranded mRNA Kit**, supported accross a number of Illumina platform. A set of standard TruSeq adapters are provided as `Illumina_TruSeq_adapters.fasta`. More more details on Illumina adapters visit official documentation. 
+Make sure to identify the sequencing platform and the library preparation protocol, this information helps us to identify appropiate adapters and contaminents that must be removed. Generally, the sequencing protocol utilizes **TruSeq Stranded mRNA Kit**, supported across several Illumina platform. Standard TruSeq adapters are provided as `Illumina_TruSeq_adapters.fasta`. For more details on Illumina adapters visit official documentation. 
 
-* Run Trimmomatic in local computing environment
+* Run Trimmomatic in a local computing environment
 
     ```bash
     #!/bin/bash
@@ -90,10 +90,10 @@ Make sure to identify the sequencing platform and the library preparation protoc
 
 ### 1.4 Extract trim statistics from the trimmomatic logs
 
-Trimmomatic provides a number of useful statiscs including the input reads, reads remaining after trimming and dropped reads. However, these statics are part of the console output. 
+Trimmomatic provides several valuable statistics, including the input reads and reads remaining after trimming and dropped reads. However, these statics are part of the console output. 
 The following script extracts these statistics from the colsole output saved as a text file or log files.
 
-* Run as a R script
+* Run as an R script
 
     ```bash
     #!/bin/bash
@@ -127,7 +127,7 @@ The following script extracts these statistics from the colsole output saved as 
 
 ### 2.1 Prepare genome build
 
-We use Hisat2 for the alignment of the raw reads. First step in the alignment is to prepare the necessary files, commonly known as a reference genome build or index. This can be performed by the the following script. This step requires a mouse refernce genome and a list of known SNPs.
+We use Hisat2 for the alignment of the raw reads. The first step in the alignment is to prepare the necessary files, commonly known as a reference genome build or index. This can be performed by the the following script. This step requires a mouse reference genome and a list of known SNPs.
 
 ```bash
 #!/bin/bash
@@ -160,7 +160,7 @@ gunzip -d snp142.txt.gz
         -o Path to the directory where the outputs will be written
     ```
 
-    Note: `hisat2_extract_snps_haplotypes_UCSC.py` is  originally distributed through Hisat2, and has been made available  in this repository at [src/Py/hisat2_extract_snps_haplotypes_UCSC.py](src/Py/hisat2_extract_snps_haplotypes_UCSC.py), under GNU General Public License. The originial script can be found in the [Hisat2 repository](https://github.com/DaehwanKimLab/hisat2/blob/master/hisat2_extract_snps_haplotypes_UCSC.py).
+    Note: `hisat2_extract_snps_haplotypes_UCSC.py` is  originally distributed through Hisat2, and has been made available  in this repository at [src/Py/hisat2_extract_snps_haplotypes_UCSC.py](src/Py/hisat2_extract_snps_haplotypes_UCSC.py), under GNU General Public License. The original script can be found in the [Hisat2 repository](https://github.com/DaehwanKimLab/hisat2/blob/master/hisat2_extract_snps_haplotypes_UCSC.py).
 
 
 * Prepare genome build through a slurm job (UVA internal on Rivanna)
@@ -169,11 +169,11 @@ gunzip -d snp142.txt.gz
     #!/bin/bash
     sbatch src/slurm/prepare_genome_build.slurm
     ```
-    If needed, the user should chage the values of `genome_fasta`,`snp_file`,`python_script` and `out_dir` in the slurm script.
+    If needed, the user should change the values of `genome_fasta`,`snp_file`,`python_script` and `out_dir` in the slurm script.
 
 ---
 
-Althernatively, prebilt genome indexes can be downloded from the [Hisat2 downloads](http://daehwankimlab.github.io/hisat2/download/). For this purpose we can use the SNP-aware or SNP and transcript aware genome indexes of the GRCm38 or mm10 reference genome.
+Alternatively, prebuilt genome indexes can be downloaded from the [Hisat2 downloads](http://daehwankimlab.github.io/hisat2/download/). For this purpose, we can use the SNP-aware or SNP and transcript-aware genome indexes of the GRCm38 or mm10 reference genome.
 
 ```bash
 #!/bin/bash
@@ -189,7 +189,7 @@ tar -xf Hisat2_prebuilt_GRCM38_transcripts_snp.tar.gz
 rm *.tar.gz # make sure to run where only the download .tar.gz are present
 ```
 
-The above commands can be used to download and decompress the taballs from the Hisat2 download page. The paths to the extarcted genome index folder should needs to be provided for the alignment.
+The above commands can download and decompress the taballs from the Hisat2 download page. The paths to the extracted genome index folder should need to be provided for the alignment.
 
 ### 2.2 Perform sequence alignment
 
@@ -208,7 +208,7 @@ The above commands can be used to download and decompress the taballs from the H
         -o Path to the directory where the outputs will be written
     ```
     Note: 
-    `-x genome_index_path` is equivalent to setting the `HISAT2_INDEXES` environment variable; where as `-n genome_index_name` should specify the base name of the index files.  The basename is the name of any of the index files up to but not including the final .1.ht2 / etc. `-i target_dir` should be set on the output directory  generated through the `src/sh/trim_fastq.sh` script.
+    `-x genome_index_path` is equivalent to setting the `HISAT2_INDEXES` environment variable, whereas `-n genome_index_name` should specify the base name of the index files.  The basename is the name of any of the index files up to but not including the final .1.ht2 / etc. `-i target_dir` should be set on the output directory  generated through the `src/sh/trim_fastq.sh` script.
 
 * Perform sequence alignment through a slurm job (UVA internal on Rivanna)
 
@@ -216,7 +216,7 @@ The above commands can be used to download and decompress the taballs from the H
     #!/bin/bash
     sbatch src/slurm/align_reads.slurm 
     ```
-    The user may modify the `target_dir`, `genome_index_path`, `genome_index_name`, and `out_dir` in the slurm script as needed.
+    The user may modify the `target_dir`, `genome_index_path`, `genome_index_name`, and `out_dir` in the slurm script.
 
 ### 2.3 Generate sorted and indexed BAM files
 
@@ -292,9 +292,9 @@ The above commands can be used to download and decompress the taballs from the H
 
 ## 3. Assemble RNA-Seq alignments into transcripts
 
-### 3.1 Create sample-level transcript assemby
+### 3.1 Create sample-level transcript assembly
     
-* Create sample-level transcript assemby in a local environment
+* Create sample-level transcript assembly in a local environment
 
     ```bash
     #!/bin/bash
@@ -307,7 +307,7 @@ The above commands can be used to download and decompress the taballs from the H
         -r Path to the reference genome annotation (GTF)
         -o Path to the directory where the outputs will be written
     ```
-* Create sample-level transcript assemby with a slurm job (UVA internal on Rivanna)
+* Create sample-level transcript assembly with a slurm job (UVA internal on Rivanna)
     
     ```bash
     #!/bin/bash
@@ -319,7 +319,7 @@ The above commands can be used to download and decompress the taballs from the H
 Note: 
 * This step needs a reference annotation file that can be downloaded from the UCSC [goldenpath/mm10](https://hgdownload.soe.ucsc.edu/goldenPath/mm10/bigZips/genes/) and other online sources.
 
-* The user must make sure that the chromosome names in the BAM and the supplied GTF are consistent (i.e. either `chr1`..`chrM` or `1`..`M`).
+* The user must ensure that the chromosome names in the BAM and the supplied GTF are consistent (i.e. either `chr1`..`chrM` or `1`..`M`).
 
 * When using the prebuilt GRCm38 genome index provided by Hisat2 (for alignment), the user must update the GTF file to get consistent chromosome names (i.e `chr1` --> `1`).
     ```bash
@@ -327,7 +327,7 @@ Note:
     sed 's/\bchr\([0-9XYM]*\)/\1/' mm10.ncbiRefSeq.gtf > mm10.ncbi_RefSeq_clean.gtf
     ```
 
-### 3.2 Merge sample-level assemblies into a concensus assembly of non redundant transcripts
+### 3.2 Merge sample-level assemblies into a consensus assembly of non-redundant transcripts
 
 * Merge sample assemblies in a local environment
 
@@ -348,11 +348,11 @@ Note:
     #!/bin/bash
     sbatch src/slurm/merge_transcript_assemblies.slurm
     ```
-    The user may modify the `target_dir`, `annotation`, and `out_dir` in the slurm script as needed.
+    The user may modify the `target_dir`, `annotation`, and `out_dir` in the slurm script.
 
-### 3.3 Create sample-level transcript assemby using the concensus assembly
+### 3.3 Create sample-level transcript assembly using the consensus assembly
 
-Generate individual sample-level assembly using the script from the section 3.1; the `ref_annotation` in this case is the merged gtf generated from the section 3.2. An additional slurm script  `compute_transcript_assembly_consensus.slurm` has been provided for this purpose. As in the section 3.1, this script uses the `src/sh/compute_transcript_assembly.sh`.
+Generate individual sample-level assembly using the script from section 3.1; the `ref_annotation` in this case is the merged gtf generated from the section 3.2. An additional slurm script  `compute_transcript_assembly_consensus.slurm` has been provided. As in the section 3.1, this script uses the `src/sh/compute_transcript_assembly.sh`.
 
 ## 4. Get abundances
 
@@ -372,7 +372,7 @@ Generate individual sample-level assembly using the script from the section 3.1;
     ```
 * Merge and filter gene level abundances with a slurm job (UVA internal on Rivanna)
 
-    Due to the non-resource intensive nature of the above script, adedicated slurm script is not provided. Users are encouraged to run this script in the interactive mode (with `ijob` command). For more details, see [notes for rivanna Users](Rivanna_UVA_internal.md).
+    Due to the non-resource-intensive nature of the above script, a dedicated slurm script is not provided. Users are encouraged to run this script in the interactive mode (with `ijob` command). For more details, see [notes for rivanna Users](Rivanna_UVA_internal.md).
 
     ```bash
     #!/bin/bash
@@ -383,7 +383,7 @@ Generate individual sample-level assembly using the script from the section 3.1;
 ### 4.2 Prepare gene and transcript level count matrix
 
 * Prepare count matrices in a local environment
-    [stringtie](https://github.com/gpertea/stringtie/tree/master) provides a python script ([prepDE.py](../src/Py/prepDE.py)) that can easily convert the GTF files into count matrices. Using a custom script a list of the GTF files are prepared and then fed into this script.
+    [stringtie](https://github.com/gpertea/stringtie/tree/master) provides a python script ([prepDE.py](../src/Py/prepDE.py)) that can easily convert the GTF files into count matrices. Using a custom script a list of the GTF files are prepared and fed into this script.
 
     ```bash
     #!/bin/bash
@@ -401,7 +401,7 @@ Generate individual sample-level assembly using the script from the section 3.1;
     #!/bin/bash
     sbatch src/slurm/generate_count_matrices.slurm
     ```
-    The user may modify the `target_dir` and `out_dir` in the slurm script as needed.
+    The user may modify the `target_dir` and `out_dir` in the slurm script.
 
 ### 4.3 Filter gene level count matrix
 
@@ -428,7 +428,7 @@ Generate individual sample-level assembly using the script from the section 3.1;
     ```
 * Filter gene  level count matrix with a a slurm job (UVA internal on Rivanna):
 
-    Due to the non-resource intensive nature of the above script, adedicated slurm script is not provided. Users are encouraged to run this script in the interactive mode (with `ijob` command)
+    Due to the non-resource-intensive nature of the above script, a dedicated slurm script is not provided. Users are encouraged to run this script in the interactive mode (with `ijob` command)
 
 ### 4.4 Normalize gene level count matrix
 
@@ -451,7 +451,7 @@ Generate individual sample-level assembly using the script from the section 3.1;
     ```
 * Perform normalization with a a slurm job (UVA internal on Rivanna):
 
-    Due to the non-resource intensive nature of the above script, adedicated slurm script is not provided. Users are encouraged to run this script in the interactive mode (with `ijob` command)
+    Due to the non-resource-intensive nature of the above script, a dedicated slurm script is not provided. Users are encouraged to run this script in the interactive mode (with `ijob` command)
 
 ## 5. Compute peer factors
 
@@ -479,4 +479,4 @@ Generate individual sample-level assembly using the script from the section 3.1;
     #!/bin/bash
     sbatch src/slurm/compute_peer_factors.slurm
     ```
-    The user may modify the `input` and `out_path` in the slurm script as needed.
+    The user may modify the `input` and `out_path` in the slurm script.
