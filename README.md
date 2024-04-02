@@ -11,7 +11,7 @@ git clone git@github.com:Farber-Lab/Diversity_outbred_bulk_RNA-Seq.git
 cd Diversity_outbred_bulk_RNA-Seq/
 ```
 ---
-Note: **GitHub no longer supports password authentication on `https://` URLs**. SSH login methods are preffered. To setup SSH based login please follow this [documentation](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account). Alternatively, a token can be used for authentiication. Use [GitHub settings](https://github.com/settings/tokens) to generate a token.
+Note: **GitHub no longer supports password authentication on `https://` URLs**. SSH login methods are preferred. To setup SSH based login please follow this [documentation](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account). Alternatively, a token can be used for authentication. Use [GitHub settings](https://github.com/settings/tokens) to generate a token.
 
 
 ### Core Dependencies
