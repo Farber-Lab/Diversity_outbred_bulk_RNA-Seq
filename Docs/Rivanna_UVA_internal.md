@@ -15,6 +15,8 @@ module spider <package>/<version>
 module load <package>/<version>
 ```
 
+Note: In some instances, the exact version of the module used originally, is no longer available in Rivanna. The older versions have been replaced with a newer version of the same software. If some errors arise due to the version issue, the user should check the available module using the `module avail <module name>` command and modify the slurm scripts to include the available version.
+
 ### Running jobs in interactive mode
 UVA users can run above modules interactively on Rivanna using the following code. For more details on slurm job management in UVA HPC systems, see the [UVA Research Compute page](https://www.rc.virginia.edu/userinfo/rivanna/slurm/)
 
